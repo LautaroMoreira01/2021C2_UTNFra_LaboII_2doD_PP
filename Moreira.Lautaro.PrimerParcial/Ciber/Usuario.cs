@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Entidades
 {
     public class Usuario : Persona
-    {
+    {   
 
         private DateTime horaDeEntrada;
         private DateTime horaDeSalida;
@@ -37,6 +37,8 @@ namespace Entidades
                     return new TimeSpan(horaDeEntrada.Hour, horaDeEntrada.Minute, horaDeEntrada.Second); 
                 }
             }
+            //Deberia ser cuando cierra el ciber?
+            //O metodo ficharHoraDeSalida con un datetime/
             set//No se le puede asignar una hora de salida menor que la hora de entrada.
             {
                 TimeSpan hrEntrada = new TimeSpan(horaDeEntrada.Hour, horaDeEntrada.Minute, horaDeEntrada.Second);
@@ -48,22 +50,22 @@ namespace Entidades
                 }
             }
         }
+
         public TimeSpan CalcularHorasTrabajadas
         {
-            get {  return horaDeEntrada - horaDeSalida ; } 
+            get {  return HoraDeEntrada - HoraDeSalida ; } 
         }
         public override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(base.Mostrar());
             sb.AppendLine($"Hora de entrada: {horaDeEntrada.Hour}");
-            if (horaDeSalida != DateTime.MinValue )
+            if (horaDeSalida != DateTime.MinValue )//Si la hora de salida no fue inicializada el valor es DateTime.minValue
             {
                 sb.AppendLine($"Hora de Salida: {horaDeSalida.Hour}");
+                sb.AppendLine($"Horas trabajadas: {CalcularHorasTrabajadas.Hours}:{CalcularHorasTrabajadas.Minutes}");
             }
-            sb.AppendLine($"Horas trabajadas: {CalcularHorasTrabajadas}");
             return sb.ToString();
-
 
         }
         public override string ToString()

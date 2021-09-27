@@ -15,16 +15,13 @@ namespace Entidades
         private ETipo tipo;
 
         public Telefono(bool estado, string identificador, ETipo tipo)
+            //El estado por defecto deberia ser true a menos que este roto lo mismo para computadora
         {
             this.estado = estado;
             this.identificador = identificador;
             this.tipo = tipo;
         }
 
-        public enum ETipo
-        {
-            ADisco, Teclado
-        }
         public bool Estado
         {
             get { return estado; }
@@ -51,8 +48,10 @@ namespace Entidades
         {
             return this.GetType() == obj.GetType();
         }
-        
-
+        public enum ETipo
+        {
+            ADisco, Teclado
+        }
 
     }
 }

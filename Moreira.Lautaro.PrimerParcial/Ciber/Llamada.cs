@@ -3,17 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+//using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Entidades
 {
 
     public class Llamada
     {
-    
+        private bool estado;//Verifica si la llamada esta en curso o ya fue finalizada.
         private string numero;
         private float costoLlamada;
-        private float duracionLlamada;//VER COMO CALCULAR LA DURACION
+        private DateTime inicioLlamada;
+        private TimeSpan duracionLlamada;//VER COMO CALCULAR LA DURACION
         //Podes calcular un random entre 1 y 60 que lo vas a poner y esos van a ser los segundos que va a durar la llamda
         //Puede ser con dos dateTime y un timeSpan
         //o con un timer.
@@ -22,14 +25,28 @@ namespace Entidades
         public Llamada(string numero)
         {
             this.numero = numero;
-            this.tipoLlamada = TipoLlamada;
-        }
+            tipoLlamada = TipoLlamada;
+            inicioLlamada = DateTime.Now;
+            estado = true;
 
+        }
+        public bool Estado
+        {
+            get {return estado; } 
+        }
         public string NumeroDestino
         {
             get {return numero; } 
         }
 
+        //Calcula el precio final de la llamada
+        public float CostoLlamada
+        {
+            get
+            {
+                return Costo() * duracionLlamada.Seconds;//Los segundos cuentan como un minuto
+            }
+        }
         public ETipoLlamada TipoLlamada
         {
             get          
@@ -59,8 +76,7 @@ namespace Entidades
             }
 
         }
-
-        //Podes hacerlo una propiedad que se fije el costo por zona y lo devuelva
+        //metodo que se fija el costo por zona y lo devuelva
         private float Costo()
         {
             if(this.TipoLlamada == ETipoLlamada.Internacional)
@@ -75,41 +91,61 @@ namespace Entidades
                 return 1.00F;
             }
         }
-
-        public float CostoLlamada
+        //IDEAS DE COMO CALCULAR EL TIEMPO
+        public TimeSpan CalcularDuracion()
         {
-            get
+            DateTime finLlamada = DateTime.Now;
+            TimeSpan duracion = new TimeSpan();
+            if (estado == true)
             {
-                return this.Costo() * this.duracionLlamada;
+                duracion = inicioLlamada - finLlamada;
+                estado = false;
             }
-        }
-        //private float CalcularCostoPorLlamada()
-        //{
-        //    if(this.TipoLlamada == ETipoLlamada.Internacional)
-        //    {
-        //        return 5.00F;
-        //    }else if (this.TipoLlamada == ETipoLlamada.LargaDistancia)
-        //    {
-        //        return 2.50F;
-        //    }
-        //    else
-        //    {
-        //        return 1.00F;
-        //    }
-        //}
+            else
+            {
+                duracion = this.duracionLlamada;
+            }
 
-        //Metodo finalizar llamada.
-
-        public enum ETipoLlamada
-        {
-            Local,LargaDistancia,Internacional
+            return duracion;
         }
-        public override bool Equals(object obj)
+
+
+        //Metodo finalizar llamada. Deberia devolver la duracion? o  el estado de la llamada
+        private bool FinalizarLlamada()
         {
-            return this.GetType() == obj.GetType();
+            estado = false;
+            return estado;
+        }
+        //Mostrar LLamada
+        public string Mostrar()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"---------------------Llamada---------------------");
+            sb.AppendLine($"Numero destino: {numero}");
+            if(estado == true)
+            {
+                sb.AppendLine($"Estado de llamda: En curso");
+            }
+            else
+            {
+                sb.AppendLine($"Estado de llamda: Finalizada");
+            }
+            sb.AppendLine($"Tipo de llamda: {tipoLlamada}");
+            sb.AppendLine($"Duracion de llamda: {duracionLlamada}");
+            sb.AppendLine($"Coste de llamda: {CostoLlamada}");
+
+            return sb.ToString();
         }
 
         //public override int GetHashCode()
         //{ }
+        public override bool Equals(object obj)
+        {
+            return this.GetType() == obj.GetType();
+        }
+        public enum ETipoLlamada
+        {
+            Local,LargaDistancia,Internacional
+        }
     }
 }
