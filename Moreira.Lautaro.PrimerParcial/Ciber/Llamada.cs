@@ -1,128 +1,169 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-//using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
 
 namespace Entidades
 {
 
     public class Llamada
     {
-        private bool estado;//Verifica si la llamada esta en curso o ya fue finalizada.
+        private bool llamadaEnCurso;//Verifica si la llamada esta en curso o ya fue finalizada.
         private string numero;
         private float costoLlamada;
         private DateTime inicioLlamada;
-        private TimeSpan duracionLlamada;//VER COMO CALCULAR LA DURACION
-        //Podes calcular un random entre 1 y 60 que lo vas a poner y esos van a ser los segundos que va a durar la llamda
-        //Puede ser con dos dateTime y un timeSpan
-        //o con un timer.
+        private TimeSpan duracionLlamada;
         private ETipoLlamada tipoLlamada;
 
+        /// <summary>
+        /// Propiedad de clase llamada que recibe el numero a llamar.
+        /// </summary>
+        /// <param name="numero"></param>
         public Llamada(string numero)
         {
-            this.numero = numero;
+            NumeroDestino = numero;
             tipoLlamada = TipoLlamada;
             inicioLlamada = DateTime.Now;
-            estado = true;
+            llamadaEnCurso = true;
 
         }
+        /// <summary>
+        /// Retorna el estado de la llamada, true si sigue, false si ya fue finalizada.
+        /// </summary>
         public bool Estado
         {
-            get {return estado; } 
+            get {return llamadaEnCurso; } 
         }
+        /// <summary>
+        /// Retorna el numero de la llamada, -1 si no es un numero valido.
+        /// setea el numero si es valido.
+        /// </summary>
         public string NumeroDestino
         {
-            get {return numero; } 
+            get
+            {
+                if(numero != "-1")
+                {
+                    return numero;
+                }
+                return "-1";
+            }
+            
+            set
+            {
+                string auxStrign = FormatearLlamada(value);
+                if (auxStrign != "-1")
+                {
+                    numero = auxStrign;
+                }
+            }
         }
 
-        //Calcula el precio final de la llamada
+        /// <summary>
+        /// Calcula el costo de la llamada
+        /// </summary>
         public float CostoLlamada
         {
             get
             {
-                return Costo() * duracionLlamada.Seconds;//Los segundos cuentan como un minuto
-            }
+                return CostoPorZona * duracionLlamada.Seconds;
         }
+        /// <summary>
+        /// Retorna el tipo de la llamada.
+        /// </summary>
         public ETipoLlamada TipoLlamada
         {
-            get          
+            get 
             {
-                ETipoLlamada llamada = ETipoLlamada.Local;
+                string auxLlamada;
 
-                //numero.Split('-');//Decirle al usuario que tiene que poner el numero sin( -(giones) +(mas) o " " (Espacios))
+                auxLlamada = FormatearLlamada(numero);
                 
-                for (int i = 0; i < numero.Length; i++)
+                if (auxLlamada.StartsWith("54011") || auxLlamada.StartsWith("5411"))
                 {
-                    if (numero[0] != '5')
-                    {
-                        llamada = ETipoLlamada.Internacional;
-                    }
-                    else if (numero[2] != '0' && (numero[2] != '1' && numero[3] != '1'))
-                    {
-                        llamada = ETipoLlamada.LargaDistancia;
-                    }
-                    else
-                    {
-                        llamada = ETipoLlamada.Local;
-                    }
-
+                    return ETipoLlamada.Local;
+                }else if(auxLlamada.StartsWith("54") && !auxLlamada.StartsWith("54011") || !auxLlamada.StartsWith("5411"))
+                {
+                    return ETipoLlamada.LargaDistancia;
                 }
-                return llamada;
-
-            }
+                else
+                {
+                    return ETipoLlamada.Internacional;
+                }
+            } 
 
         }
-        //metodo que se fija el costo por zona y lo devuelva
-        private float Costo()
+        /// <summary>
+        /// Devuelve el costo por minuto de la llamada dependiendo la zona
+        /// </summary>
+        private float CostoPorZona
         {
-            if(this.TipoLlamada == ETipoLlamada.Internacional)
-            {
-                return 5.00F;
-            }else if (this.TipoLlamada == ETipoLlamada.LargaDistancia)
-            {
-                return 2.50F;
-            }
-            else
-            {
-                return 1.00F;
+            get 
+            { 
+                if(this.TipoLlamada == ETipoLlamada.Internacional)
+                {
+                    return 5.00F;
+                }else if (this.TipoLlamada == ETipoLlamada.LargaDistancia)
+                {
+                    return 2.50F;
+                }
+                else
+                {
+                    return 1.00F;
+                }
             }
         }
-        //IDEAS DE COMO CALCULAR EL TIEMPO
-        public TimeSpan CalcularDuracion()
+        /// <summary>
+        /// Calcula la duracion de la llamada.
+        /// </summary>
+        /// <returns>un time span con la duracion de la llamada</returns>
+        private TimeSpan CalcularDuracion()
         {
             DateTime finLlamada = DateTime.Now;
             TimeSpan duracion = new TimeSpan();
-            if (estado == true)
+            if (llamadaEnCurso == true)
             {
                 duracion = inicioLlamada - finLlamada;
-                estado = false;
+                
             }
             else
             {
-                duracion = this.duracionLlamada;
+                duracion = duracionLlamada;
             }
 
             return duracion;
         }
 
-
-        //Metodo finalizar llamada. Deberia devolver la duracion? o  el estado de la llamada
-        private bool FinalizarLlamada()
+        /// <summary>
+        /// Finaliza la llamada.
+        /// </summary>
+        /// <returns>Si la llamada esta en curso retorna la informacion de la llamada, si ya fue finalizada lo informa.</returns>
+        private string FinalizarLlamada()
         {
-            estado = false;
-            return estado;
+            StringBuilder sb = new StringBuilder();
+
+            if (Estado)
+            {
+                llamadaEnCurso = false;
+                sb.Append(Mostrar());
+            }
+            else
+            {
+                sb.AppendLine($"La llamada {Mostrar()} ya fue finalizada.");
+            }
+           
+            return sb.ToString() ;
+
         }
-        //Mostrar LLamada
+        /// <summary>
+        /// Muestra la informacion de la llamada.
+        /// </summary>
+        /// <returns>retorna un string con la informacion de la llamada.</returns>
         public string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"---------------------Llamada---------------------");
             sb.AppendLine($"Numero destino: {numero}");
-            if(estado == true)
+            if(llamadaEnCurso == true)
             {
                 sb.AppendLine($"Estado de llamda: En curso");
             }
@@ -136,16 +177,53 @@ namespace Entidades
 
             return sb.ToString();
         }
-
-        //public override int GetHashCode()
-        //{ }
-        public override bool Equals(object obj)
+        
+        /// <summary>
+        /// Valida si la llamada no contiene caracteres incorrectos
+        /// </summary>
+        /// <param name="numero">numero a validar</param>
+        /// <returns>true si es valida, else si no lo es.</returns>
+        public static bool ValidarLlamada(string numero)//valida si el numero es correcto
         {
-            return this.GetType() == obj.GetType();
+            bool rta = true;
+            int aux = 0;
+           
+            for (int i = 0; i < numero.Length ; i++)
+            {
+                if ((numero[i] != '+' && numero[i] != '-' && numero[i] != ' ') || int.TryParse(numero[i].ToString() , out aux) == false)
+                {
+                    rta = false;
+                }
+            }
+
+            return rta;
         }
+
+        /// <summary>
+        /// Formatea la llamada eliminando caracteres que no son numeros. 
+        /// </summary>
+        /// <param name="numero"></param>
+        /// <returns>retorna el numero sin caracteres especiales o -1 si no es valido.</returns>
+        private static string FormatearLlamada(string numero)//Devuelve solamente el numero sin otros caracteres
+        {
+            string[] arrayNumero = null;
+           
+            if (ValidarLlamada(numero))
+            {
+                arrayNumero = numero.Split('+', '-', ' ');
+                return arrayNumero.ToString();
+            }
+            return "-1";
+
+        }
+      
+        /// <summary>
+        /// Enumerado con los tipos de llamdas.
+        /// </summary>
         public enum ETipoLlamada
         {
             Local,LargaDistancia,Internacional
         }
+
     }
 }

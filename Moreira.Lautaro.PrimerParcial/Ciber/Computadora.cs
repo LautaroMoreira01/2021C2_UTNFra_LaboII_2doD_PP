@@ -6,48 +6,39 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public class Computadora
+    public class Computadora : Equipo
     {
-        private bool estado; //Puedo hacer una clase base con estado identificador propiedades y metodos que sean iguales en computadora y telefono
-        // PAra no hacer siempre lo mismo.
-        //Nose como llamarla 
-        //Electronico?
-        //
-       
-        private string identificador;
-        private TimeSpan tiempoDeUso;
         private const float costoDeUso = 0.50F;
+
+        private TimeSpan tiempoDeUso;
         private List<Hardware> listHardware;
         private List<Juegos> listJuegos;
         private List<Software> listSoftware;
         private List<Perifericos> listPerifericos;
-        private SistemaOperativo so;
-
+        /// <summary>
+        /// Constructor de la clase Computadora.
+        /// </summary>
+        /// <param name="hardware"></param>
+        /// <param name="juegos"></param>
+        /// <param name="software"></param>
+        /// <param name="perifericos"></param>
+        /// <param name="sistemaOperativo"></param>
+        /// <param name="identificador"></param>
+        /// <param name="tiempoDeUso"></param>
         public Computadora(List<Hardware> hardware , List<Juegos> juegos , List<Software> software 
-            , List<Perifericos> perifericos  , SistemaOperativo so , string identificador , TimeSpan tiempoDeUso)
+            , List<Perifericos> perifericos  , SistemasOperativos sistemaOperativo , string identificador , TimeSpan tiempoDeUso )
+            : base(identificador)
         {
             this.listHardware = hardware ;
             this.listJuegos = juegos ;
             this.listSoftware = software;
             this.listPerifericos = perifericos;
-            this.so = so;
-            this.estado = true;
-            this.identificador = identificador;
             this.tiempoDeUso = tiempoDeUso;
         }
-
-        public bool Estado
-        {
-            get {return estado; }
-            set { estado = value;  }
-        
-        }
-        public string Identificador
-        {
-            get { return identificador; }
-        }
-
-        
+        /// <summary>
+        /// Calcula el costo de el uso de la computadora.
+        /// </summary>
+        /// <returns></returns>
         private float CalcularCostoDeUso()
         {
             //Pasar todo a segundos y buscar si es modulo de 30?
@@ -63,17 +54,18 @@ namespace Entidades
             }
 
             
-            return costo; //
+            return costo; //REVISAR
         }
-        //Deberia mostrar la computadora con el cliente que la esta usando?
-        private string Mostrar()
+        /// <summary>
+        /// Muestra la informacion de la Computadora.
+        /// </summary>
+        /// <returns></returns>
+        protected override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Computadora: {identificador}");
-            sb.AppendLine($"Sistema operativo: {so}");
-            sb.AppendLine($"Estado: {Estado}");
-            sb.AppendLine($"tiempo de uso: {tiempoDeUso}");
 
+            sb.AppendFormat($"Equipo: {00.00}",tiempoDeUso);
+            sb.AppendFormat($"Tiempo de uso: {00.00}",tiempoDeUso);
             sb.AppendLine($"--------------------------------------");
 
             sb.AppendLine($"Hardware:");
@@ -107,20 +99,13 @@ namespace Entidades
             return sb.ToString();
 
         }
-
-
+        /// <summary>
+        /// Sobrescritura del metodo toString que devuelve la informacion de la computadora.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return Mostrar();
-        }
-        public override bool Equals(object obj)
-        {
-            return this.GetType() == obj.GetType();
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
+            return Mostrar(); 
         }
     }
 }

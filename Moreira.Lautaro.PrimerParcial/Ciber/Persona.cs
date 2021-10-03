@@ -22,19 +22,17 @@ namespace Entidades
             this.edad = edad;
             this.dni = dni;
         }
-        //Capaz este no va 
-        public Persona(string nombre, int edad, long dni) : this(nombre , "" , edad , dni)
-        {
-        }
 
+        //El método Mostrar de Persona ¿qué muestra?. El nombre tiene que ser descriptivo.
         public virtual string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
 
+            sb.AppendLine($"------------------------------------------");
             sb.AppendLine($"Nombre: {Nombre}");
             sb.AppendLine($"Apellido: {apellido}");
-            sb.Append($"Edad: {edad}");
-            sb.Append($"DNi: {dni}");
+            sb.AppendLine($"Edad: {edad}");
+            sb.AppendLine($"DNI: {dni}");
 
             return sb.ToString();
         }
