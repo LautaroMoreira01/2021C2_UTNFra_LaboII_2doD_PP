@@ -10,22 +10,35 @@ namespace Entidades
     {
         private string identificador;
         private Llamada llamada;
-        private ETipo tipo;
+        private ETipo tipo; 
         
+        /// <summary>
+        /// Constructor del telefono
+        /// </summary>
+        /// <param name="identificador"></param>
+        /// <param name="tipo"></param>
         public Telefono( string identificador , ETipo tipo ) : base(identificador)
         {
-            this.tipo = tipo;
+            this.Tipo = tipo;
         }
 
+
+        /// <summary>
+        /// Muestra la informacion del telefono con su llamada.
+        /// </summary>
+        /// <returns></returns>
         protected override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"{base.Mostrar()}");
-            sb.AppendLine($"Tipo: {tipo.ToString()}");
+            sb.AppendLine($"Tipo: {Tipo.ToString()}");
             sb.AppendLine($"{llamada.Mostrar()}");
             return sb.ToString();
         }
-        public string NumeroLlamada //Deberia llamarse numero llamada?
+        /// <summary>
+        /// Retorna el numero de la llamada si no fue inicializada retorna -1.
+        /// </summary>
+        public string NumeroLlamada
         {
             get
             {
@@ -45,15 +58,26 @@ namespace Entidades
             }  
         }
 
+        public ETipo Tipo
+        {
+            get { return tipo; }
+        }
 
+
+        /// <summary>
+        /// Sobrescritura del metodo tostring 
+        /// </summary>
+        /// <returns>Informacion del telefono en string</returns>
         public override string ToString()
         {
             return this.Mostrar();
         }
-
+        /// <summary>
+        /// Enum con los tipos de telefonos
+        /// </summary>
         public enum ETipo
         {
-            ADisco, Teclado
+            None,ADisco, Teclado
         }
 
     }

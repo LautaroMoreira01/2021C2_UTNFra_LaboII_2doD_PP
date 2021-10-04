@@ -8,6 +8,14 @@ namespace Entidades
 {
     public class Usuario : Persona
     {   
+        
+        
+        //NO AVANCE CON ESTA CLASE
+        //NO AVANCE CON ESTA CLASE
+        //NO AVANCE CON ESTA CLASE
+        //NO AVANCE CON ESTA CLASE
+        //NO AVANCE CON ESTA CLASE
+
 
         private DateTime horaDeEntrada;
         private DateTime horaDeSalida;

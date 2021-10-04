@@ -24,6 +24,10 @@ namespace Entidades
         {
             this.requerimientoTipoTelefono = requerimientoTipoTelefono;
         }
+
+        /// <summary>
+        /// Todos los constructores de requerimientos de computadora.
+        /// </summary>
         #region Constructores para computadora.
 
 
@@ -116,12 +120,18 @@ namespace Entidades
             : this(nombre, apellido, edad, dni, new List<Software>(), requerimientoPerifericos)
         { }
         #endregion
-
+        /// <summary>
+        /// propiedad que devuelva estado de espera.
+        /// </summary>
         public bool EnEspera
         {
             get {return enEspera; }
             set { enEspera = value; } 
         }
+        /// <summary>
+        /// Sobrescritura del metodo to string que retorna la informacion del cliente.
+        /// </summary>
+        /// <returns></returns>
         public override string Mostrar()
         {
             return base.Mostrar();

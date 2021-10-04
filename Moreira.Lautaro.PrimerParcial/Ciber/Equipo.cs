@@ -31,7 +31,7 @@ namespace Entidades
             set { estaLibre = value;}
         }
         /// <summary>
-        /// 
+        /// Retorna o asigna el cliente de la computadora.
         /// </summary>
         public Cliente Cliente 
         {

@@ -11,10 +11,13 @@ namespace Entidades
         private const float costoDeUso = 0.50F;
 
         private TimeSpan tiempoDeUso;
+        private DateTime inicioDeUso; //Para constructor de uso libre.
         private List<Hardware> listHardware;
         private List<Juegos> listJuegos;
         private List<Software> listSoftware;
         private List<Perifericos> listPerifericos;
+
+
         /// <summary>
         /// Constructor de la clase Computadora.
         /// </summary>
@@ -22,18 +25,23 @@ namespace Entidades
         /// <param name="juegos"></param>
         /// <param name="software"></param>
         /// <param name="perifericos"></param>
-        /// <param name="sistemaOperativo"></param>
         /// <param name="identificador"></param>
         /// <param name="tiempoDeUso"></param>
         public Computadora(List<Hardware> hardware , List<Juegos> juegos , List<Software> software 
-            , List<Perifericos> perifericos  , SistemasOperativos sistemaOperativo , string identificador , TimeSpan tiempoDeUso )
+            , List<Perifericos> perifericos  , string identificador , TimeSpan tiempoDeUso )
             : base(identificador)
         {
             this.listHardware = hardware ;
             this.listJuegos = juegos ;
             this.listSoftware = software;
             this.listPerifericos = perifericos;
-            this.tiempoDeUso = tiempoDeUso;
+            this.TiempoDeUso = tiempoDeUso;
+        }
+        public Computadora(List<Hardware> hardware, List<Juegos> juegos, List<Software> software
+            , List<Perifericos> perifericos, string identificador)
+            : this(hardware, juegos, software, perifericos, identificador , new TimeSpan())
+        {
+            this.inicioDeUso = DateTime.Now;
         }
         /// <summary>
         /// Calcula el costo de el uso de la computadora.
@@ -42,7 +50,7 @@ namespace Entidades
         private float CalcularCostoDeUso()
         {
             //Pasar todo a segundos y buscar si es modulo de 30?
-            int minutosDeUso = tiempoDeUso.Seconds;
+            int minutosDeUso = TiempoDeUso.Seconds;
             float costo ;
             costo = (minutosDeUso / 30) * costoDeUso;//Divide por 30 la todo el total de minutos y te da cuantos 30 minutos hay
             
@@ -57,15 +65,39 @@ namespace Entidades
             return costo; //REVISAR
         }
         /// <summary>
+        /// Propiedad que calcula el tiempo de uso de la computadora
+        /// </summary>
+        public TimeSpan TiempoDeUso //REVISAR ESTA PROPIEDAD
+        {
+            get
+            {
+                if(tiempoDeUso != TimeSpan.MinValue)
+                {
+                    return tiempoDeUso;
+                }
+                else
+                {
+                    return inicioDeUso - DateTime.Now;
+                }
+            } 
+            set 
+            { 
+                if(value > tiempoDeUso)
+                {
+                    tiempoDeUso = value;// Creo que esta maaal
+                }
+            } 
+        }
+        /// <summary>
         /// Muestra la informacion de la Computadora.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>devuelve la informacion de la computadora en string</returns>
         protected override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendFormat($"Equipo: {00.00}",tiempoDeUso);
-            sb.AppendFormat($"Tiempo de uso: {00.00}",tiempoDeUso);
+            sb.AppendFormat($"{base.Mostrar()}");
+            sb.AppendFormat($"Tiempo de uso: {00.00}",TiempoDeUso);
             sb.AppendLine($"--------------------------------------");
 
             sb.AppendLine($"Hardware:");

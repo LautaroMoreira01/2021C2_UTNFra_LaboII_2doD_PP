@@ -21,7 +21,10 @@ namespace Entidades
             this.empleado = empleado;
         
         }
-
+        /// <summary>
+        /// Muestra los clientes en espera
+        /// </summary>
+        /// <returns>String con los clientes en espera</returns>
         public string MostrarClientesEnEspera()
         {
             StringBuilder sb = new StringBuilder();
@@ -37,6 +40,11 @@ namespace Entidades
 
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Muestra la informacion de las computadoras
+        /// </summary>
+        /// <returns></returns>
         public string MostrarComputadoras()
         {
             StringBuilder sb = new StringBuilder();
@@ -52,6 +60,10 @@ namespace Entidades
 
             return sb.ToString();
         }
+        /// <summary>
+        /// Muestra la iformacion de los telefonos
+        /// </summary>
+        /// <returns></returns>
         public string MostrarTelefonos()
         {
             StringBuilder sb = new StringBuilder();
