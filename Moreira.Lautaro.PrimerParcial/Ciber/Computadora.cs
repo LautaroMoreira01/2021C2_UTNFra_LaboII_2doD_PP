@@ -8,14 +8,57 @@ namespace Entidades
 {
     public class Computadora : Equipo
     {
-        private const float costoDeUso = 0.50F;
+        private const float costoDeUso = 0.50F;//Podes hacer un constructor que devuelva por defecto este valor.
 
-        private TimeSpan tiempoDeUso;
-        private DateTime inicioDeUso; //Para constructor de uso libre.
         private List<Hardware> listHardware;
         private List<Juegos> listJuegos;
         private List<Software> listSoftware;
         private List<Perifericos> listPerifericos;
+
+        public List<Hardware> ListHardware
+        {
+            get
+            {
+                return listHardware;
+            }
+            set
+            {
+                listHardware = value;
+            }
+        }
+        public List<Juegos> ListJuegos { 
+            get
+            {
+                return listJuegos;
+            }
+            set
+            {
+                listJuegos = value;
+            }
+        }
+        public List<Software> ListSoftware
+        {
+            get
+            {
+                return listSoftware;
+            }
+            set
+            {
+                listSoftware = value;
+            }
+        }
+        public List<Perifericos> ListPerifericos
+        {
+            get
+            {
+                return listPerifericos;
+            }
+
+            set
+            {
+                listPerifericos = value;
+            }
+        }
 
 
         /// <summary>
@@ -26,68 +69,33 @@ namespace Entidades
         /// <param name="software"></param>
         /// <param name="perifericos"></param>
         /// <param name="identificador"></param>
-        /// <param name="tiempoDeUso"></param>
-        public Computadora(List<Hardware> hardware , List<Juegos> juegos , List<Software> software 
-            , List<Perifericos> perifericos  , string identificador , TimeSpan tiempoDeUso )
-            : base(identificador)
-        {
-            this.listHardware = hardware ;
-            this.listJuegos = juegos ;
-            this.listSoftware = software;
-            this.listPerifericos = perifericos;
-            this.TiempoDeUso = tiempoDeUso;
-        }
         public Computadora(List<Hardware> hardware, List<Juegos> juegos, List<Software> software
-            , List<Perifericos> perifericos, string identificador)
-            : this(hardware, juegos, software, perifericos, identificador , new TimeSpan())
+            , List<Perifericos> perifericos, string identificador):base(identificador)
         {
-            this.inicioDeUso = DateTime.Now;
+            ListHardware = hardware;
+            ListJuegos = juegos;
+            ListSoftware = software;
+            ListPerifericos = perifericos;
         }
+
+
         /// <summary>
         /// Calcula el costo de el uso de la computadora.
         /// </summary>
         /// <returns></returns>
-        private float CalcularCostoDeUso()
+        protected override float CalcularCostoDeUso()
         {
-            //Pasar todo a segundos y buscar si es modulo de 30?
-            int minutosDeUso = TiempoDeUso.Seconds;
-            float costo ;
-            costo = (minutosDeUso / 30) * costoDeUso;//Divide por 30 la todo el total de minutos y te da cuantos 30 minutos hay
-            
-
-            if(minutosDeUso % 30 > 0) //Por mas que los minutos de uso sean menores a 30 te los cobra
-                //Si hay sobrante de minutos "redondea" para arriba y te suma otra media hora de costo de uso
+            int horasDeUso = TiempoDeUso.Minutes;
+            int minutosDeUso = TiempoDeUso.Seconds + (horasDeUso * 60);
+            float costo = (minutosDeUso / 30) * costoDeUso;
+            if(minutosDeUso % 30 > 0) 
             {
                 costo += costoDeUso;
             }
-
             
-            return costo; //REVISAR
+            return costo; 
         }
-        /// <summary>
-        /// Propiedad que calcula el tiempo de uso de la computadora
-        /// </summary>
-        public TimeSpan TiempoDeUso //REVISAR ESTA PROPIEDAD
-        {
-            get
-            {
-                if(tiempoDeUso != TimeSpan.MinValue)
-                {
-                    return tiempoDeUso;
-                }
-                else
-                {
-                    return inicioDeUso - DateTime.Now;
-                }
-            } 
-            set 
-            { 
-                if(value > tiempoDeUso)
-                {
-                    tiempoDeUso = value;// Creo que esta maaal
-                }
-            } 
-        }
+
         /// <summary>
         /// Muestra la informacion de la Computadora.
         /// </summary>
@@ -96,19 +104,18 @@ namespace Entidades
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendFormat($"{base.Mostrar()}");
-            sb.AppendFormat($"Tiempo de uso: {00.00}",TiempoDeUso);
+            sb.AppendFormat($"{base.Mostrar()}"); 
+            sb.AppendLine($"Tiempo de uso: {TiempoDeUso}");
             sb.AppendLine($"--------------------------------------");
-
             sb.AppendLine($"Hardware:");
-            foreach (Hardware item in listHardware)
+            foreach (Hardware item in ListHardware)
             {
                 sb.AppendLine($"{item.ToString()}");
             }
             sb.AppendLine($"--------------------------------------");
 
             sb.AppendLine($"Software:");
-            foreach (Software item in listSoftware)
+            foreach (Software item in ListSoftware)
             {
                 sb.AppendLine($"{item.ToString()}");
             
@@ -116,14 +123,14 @@ namespace Entidades
             sb.AppendLine($"--------------------------------------");
 
             sb.AppendLine($"Juegos:");
-            foreach (Juegos item in listJuegos)
+            foreach (Juegos item in ListJuegos)
             {
                 sb.AppendLine($"{item.ToString()}");
             }
             sb.AppendLine($"--------------------------------------");
 
             sb.AppendLine($"Perifericos:");
-            foreach (Perifericos item in listPerifericos)
+            foreach (Perifericos item in ListPerifericos)
             {
                 sb.AppendLine($"{item.ToString()}");
             }
@@ -139,5 +146,29 @@ namespace Entidades
         {
             return Mostrar(); 
         }
+        public string MostrarComputadoraConHardwareYSoftware()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendFormat($"{base.Mostrar()}");
+            //sb.AppendLine($"Tiempo de uso: {TiempoDeUso}");
+            sb.AppendLine($"--------------------------------------");
+            sb.AppendLine($"Hardware:");
+            foreach (Hardware item in ListHardware)
+            {
+                sb.AppendLine($"{item.ToString()}");
+            }
+            sb.AppendLine($"--------------------------------------");
+
+            sb.AppendLine($"Software:");
+            foreach (Software item in ListSoftware)
+            {
+                sb.AppendLine($"{item.ToString()}");
+
+            }
+            sb.AppendLine($"--------------------------------------");
+            return sb.ToString();
+        }
+
     }
 }

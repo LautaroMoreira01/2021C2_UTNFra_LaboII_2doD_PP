@@ -8,10 +8,15 @@ namespace Entidades
 {
     public class Telefono : Equipo
     {
-        private string identificador;
-        private Llamada llamada;
-        private ETipo tipo; 
-        
+        private ETipo tipo;
+        private string numero;
+        private ETipoLlamada tipoLlamada;
+
+        public enum ETipoLlamada //Pasarla a un archivo donde este sola.
+        {
+            Local, LargaDistancia, Internacional
+        }
+
         /// <summary>
         /// Constructor del telefono
         /// </summary>
@@ -19,7 +24,7 @@ namespace Entidades
         /// <param name="tipo"></param>
         public Telefono( string identificador , ETipo tipo ) : base(identificador)
         {
-            this.Tipo = tipo;
+            this.tipo = tipo;
         }
 
 
@@ -30,11 +35,33 @@ namespace Entidades
         protected override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{base.Mostrar()}");
+            sb.Append($"{base.Mostrar()}");
             sb.AppendLine($"Tipo: {Tipo.ToString()}");
-            sb.AppendLine($"{llamada.Mostrar()}");
+            if(numero != null)
+            {
+                sb.AppendLine($"---------------------Llamada---------------------");
+                sb.AppendLine($"Numero destino: {numero}");
+                sb.AppendLine($"Tipo de llamda: {TipoLlamada}");
+                sb.AppendLine($"Duracion de llamda: {TiempoDeUso.Minutes}:{TiempoDeUso.Seconds}");
+                sb.AppendLine($"Coste de llamda: {CalcularCostoDeUso()}");//Fijate esto te calcula mal 
+                if (!EstaLibre)
+                {
+                    sb.AppendLine($"Estado de llamda: En curso");
+                }
+                else
+                {
+                    sb.AppendLine($"Estado de llamda: Finalizada");
+                }
+            }
             return sb.ToString();
         }
+
+        protected override float CalcularCostoDeUso()
+        {
+
+            return (float)(CostoPorZona * (TiempoDeUso.TotalSeconds + (TiempoDeUso.TotalMinutes * 60)));
+        }
+    
         /// <summary>
         /// Retorna el numero de la llamada si no fue inicializada retorna -1.
         /// </summary>
@@ -42,17 +69,20 @@ namespace Entidades
         {
             get
             {
-                if (llamada is not null)
+                if(numero != null)
                 {
-                    return llamada.NumeroDestino;
+                    return numero;
                 }
-                return "-1";
+                else
+                {
+                    return "-1";
+                }
             }
             set
             {
-                if (Llamada.ValidarLlamada(value))
+                if (ValidarNumeroLlamada(value))
                 {
-                    llamada.NumeroDestino = value;
+                    numero = value;
                 }
                 
             }  
@@ -63,7 +93,48 @@ namespace Entidades
             get { return tipo; }
         }
 
+        /// <summary>
+        /// Valida si la llamada no contiene caracteres incorrectos
+        /// </summary>
+        /// <param name="numero">numero a validar</param>
+        /// <returns>true si es valida, false si no lo es.</returns>
 
+
+        public static bool ValidarNumeroLlamada(string numero)
+        {
+            bool rta = true;
+            int aux = 0;
+            if(numero.Length >= 12)
+            {
+                for (int i = 0; i < numero.Length; i++)
+                {
+                    if ((numero[i] != '+' && numero[i] != '-' && numero[i] != ' ') && int.TryParse(numero[i].ToString(), out aux) == false)
+                    {
+                    rta = false;
+                    }
+                }
+            }
+            else
+            {
+                rta = false;
+            }
+
+            return rta;
+        }
+        private static string FormatearNumero(string numero)
+        {
+            string[] arrayNumero = null;
+            string rta = "";
+
+            if (ValidarNumeroLlamada(numero))
+            {
+                arrayNumero = numero.Split('+', '-', ' ');
+                rta = string.Concat(arrayNumero);
+                //rta = arrayNumero.Join("", arrayNumero);
+            }
+            return rta;
+
+        }
         /// <summary>
         /// Sobrescritura del metodo tostring 
         /// </summary>
@@ -71,6 +142,55 @@ namespace Entidades
         public override string ToString()
         {
             return this.Mostrar();
+        }
+
+        /// <summary>
+        /// Devuelve el costo por minuto de la llamada dependiendo la zona
+        /// </summary>
+
+        private float CostoPorZona
+        {
+            get
+            {
+                if (TipoLlamada == ETipoLlamada.Internacional)
+                {
+                    return 5.00F;
+                }
+                else if (TipoLlamada == ETipoLlamada.LargaDistancia)
+                {
+                    return 2.50F;
+                }
+                else
+                {
+                    return 1.00F;
+                }
+            }
+        }
+        /// <summary>
+        /// Retorna el tipo de la llamada.
+        /// </summary>
+        public ETipoLlamada TipoLlamada
+        {
+            get
+            {
+                string auxLlamada;
+
+                auxLlamada = FormatearNumero(numero);
+
+                if (auxLlamada.StartsWith("54011") || auxLlamada.StartsWith("5411"))
+                {
+                    return ETipoLlamada.Local;
+                }
+                else if (auxLlamada.StartsWith("54") == true && (auxLlamada.StartsWith("54011") == false || auxLlamada.StartsWith("5411") == false) )
+                {
+                    return ETipoLlamada.LargaDistancia;
+                }
+                else
+                {
+                    return ETipoLlamada.Internacional;
+                }
+            }
+
         }
         /// <summary>
         /// Enum con los tipos de telefonos

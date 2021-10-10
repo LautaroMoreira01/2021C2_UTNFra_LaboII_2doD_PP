@@ -16,110 +16,163 @@ namespace Entidades
 
         private bool enEspera;//En espera true o ya fue atendido false 
  
+
         public Cliente(string nombre, string apellido, int edad , long dni) : base(nombre, apellido, edad , dni)
         {
             enEspera = true;
         }
-        public Cliente(string nombre, string apellido, int edad, long dni , Telefono.ETipo requerimientoTipoTelefono) : base(nombre, apellido, edad, dni)
+        
+        public Cliente(string nombre, string apellido, int edad, long dni , Telefono.ETipo requerimientoTipoTelefono) : this(nombre, apellido, edad, dni)
         {
             this.requerimientoTipoTelefono = requerimientoTipoTelefono;
         }
 
-        /// <summary>
-        /// Todos los constructores de requerimientos de computadora.
-        /// </summary>
-        #region Constructores para computadora.
 
 
-        public Cliente(string nombre, string apellido, int edad, long dni 
-            , List<Software> requerimientoSoftware
-            , List<Hardware> requerimientoHardware
-            , List<Juegos> requerimientoJuegos
-            , List<Perifericos> requerimientoPerifericos
-            ) : this(nombre , apellido , edad , dni)
+        #region Agregar hardware
+        public static bool operator +(Cliente c, Hardware requerimiento)
         {
-            this.requerimientoSoftware = requerimientoSoftware;
-            this.requerimientoHardware = requerimientoHardware;
-            this.requerimientoJuegos = requerimientoJuegos;
-            this.requerimientoPerifericos = requerimientoPerifericos;
+            bool rta = false;
+            if (c.requerimientoHardware == null)
+            {
+                c.requerimientoHardware = new List<Hardware>();
+            }
+            if (c != requerimiento)
+            {
+                c.requerimientoHardware.Add(requerimiento);
+                rta = true;
+            }
+            return rta;
+        }
+        public static bool operator ==(Cliente c1, Hardware requerimiento)
+        {
+            bool rta = false;
+            foreach(Hardware hardware in c1.requerimientoHardware)
+            {
+                if(requerimiento == hardware)
+                {
+                    rta = true;
+                    break;
+                }
+            }
+            return rta;
+        }
+        public static bool operator !=(Cliente c1, Hardware requerimiento)
+        {
+            return !(c1 == requerimiento);
         }
 
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Hardware> requerimientoHardware
-            , List<Juegos> requerimientoJuegos
-            , List<Perifericos> requerimientoPerifericos)
-            : this(nombre, apellido, edad, dni, new List<Software>(), requerimientoHardware, requerimientoJuegos, requerimientoPerifericos)
-        { }
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Software> requerimientoSoftware
-            , List<Juegos> requerimientoJuegos
-            , List<Perifericos> requerimientoPerifericos)
-            : this(nombre, apellido, edad, dni, requerimientoSoftware, new List<Hardware>(), requerimientoJuegos, requerimientoPerifericos)
-        { }
 
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Software> requerimientoSoftware
-            , List<Hardware> requerimientoHardware
-            , List<Perifericos> requerimientoPerifericos)
-            : this(nombre, apellido, edad, dni, requerimientoSoftware, requerimientoHardware, new List<Juegos>(), requerimientoPerifericos)
-        { }
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Software> requerimientoSoftware
-            , List<Hardware> requerimientoHardware
-            , List<Juegos> requerimientoJuegos)
-            : this(nombre, apellido, edad, dni, requerimientoSoftware, requerimientoHardware, requerimientoJuegos, new List<Perifericos>())
-        { }
-
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Software> requerimientosoftware
-            , List<Hardware> requerimientohardware)
-            : this(nombre, apellido, edad, dni, requerimientosoftware, requerimientohardware , new List<Perifericos>())
-        { }
-
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Software> requerimientoSoftware
-            , List<Perifericos> requerimientoPerifericos)
-            : this(nombre, apellido, edad, dni, requerimientoSoftware, new List<Hardware>(), requerimientoPerifericos)
-        { }
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Software> requerimientoSoftware
-            , List<Juegos> requerimientoJuegos)
-            : this(nombre, apellido, edad, dni, requerimientoSoftware,requerimientoJuegos, new List<Perifericos>())
-        { }
-
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Hardware> requerimientoHardware
-            , List<Juegos> requerimientoJuegos)
-            : this(nombre, apellido, edad, dni,  requerimientoHardware, requerimientoJuegos, new List<Perifericos>())
-        { }
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Hardware> requerimientoHardware
-            , List<Perifericos> requerimientoPerifericos)
-            : this(nombre, apellido, edad, dni, requerimientoHardware, new List<Juegos>(), requerimientoPerifericos)
-        { }
-
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Juegos> requerimientoJuegos
-            , List<Perifericos> requerimientoPerifericos)
-            : this(nombre, apellido, edad, dni, new List<Software>(), requerimientoJuegos, requerimientoPerifericos)
-        { }
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Software> requerimientoSoftware)
-            : this(nombre, apellido, edad, dni, requerimientoSoftware, new List<Perifericos>())
-        { }
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Hardware> requerimientoHardware)
-            : this(nombre, apellido, edad, dni, new List<Software>(), requerimientoHardware)
-        { }
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Juegos> requerimientoJuegos)
-            : this(nombre, apellido, edad, dni,  requerimientoJuegos, new List<Perifericos>())
-        { }
-        public Cliente(string nombre, string apellido, int edad, long dni
-            , List<Perifericos> requerimientoPerifericos)
-            : this(nombre, apellido, edad, dni, new List<Software>(), requerimientoPerifericos)
-        { }
         #endregion
+        #region Agregar software
+
+        public static bool operator ==(Cliente c1, Software requerimiento)
+        {
+            bool rta = false;
+            foreach (Software software in c1.requerimientoSoftware)
+            {
+                if (requerimiento == software)
+                {
+                    rta = true;
+                    break;
+                }
+            }
+            return rta;
+        }
+        public static bool operator !=(Cliente c1, Software requerimiento)
+        {
+            return !(c1 == requerimiento);
+        }
+        public static bool operator +(Cliente c, Software requerimiento)
+        {
+            bool rta = false;
+            if (c.requerimientoSoftware == null)
+            {
+                c.requerimientoSoftware = new List<Software>();
+            }
+
+            if (c != requerimiento)
+            {
+                c.requerimientoSoftware.Add(requerimiento);
+                rta = true;
+            }
+            return rta;
+        }
+        #endregion
+        #region Agregar Juegos
+
+        public static bool operator ==(Cliente c1, Juegos requerimiento)
+        {
+            bool rta = false;
+            foreach (Juegos juego in c1.requerimientoJuegos)
+            {
+                if (requerimiento == juego )
+                {
+                    rta = true;
+                    break;
+                }
+            }
+            return rta;
+        }
+        public static bool operator !=(Cliente c1, Juegos requerimiento)
+        {
+            return !(c1 == requerimiento);
+        }
+        public static bool operator +(Cliente c, Juegos requerimiento)
+        {
+            bool rta = false;
+            if (c.requerimientoJuegos == null)
+            {
+                c.requerimientoJuegos = new List<Juegos>();
+            }
+
+            if (c != requerimiento)
+            {
+                c.requerimientoJuegos.Add(requerimiento);
+                rta = true;
+            }
+            return rta;
+        }
+        #endregion
+        #region Agregar Perifericos
+
+        public static bool operator ==(Cliente c1, Perifericos requerimiento)
+        {
+            bool rta = false;
+            foreach (Perifericos periferico in c1.requerimientoJuegos)
+            {
+                if (requerimiento == periferico)
+                {
+                    rta = true;
+                    break;
+                }
+            }
+            return rta;
+        }
+        public static bool operator !=(Cliente c1, Perifericos requerimiento)
+        {
+            return !(c1 == requerimiento);
+        }
+        public static bool operator +(Cliente c, Perifericos requerimiento)
+        {
+            bool rta = false;
+            if (c.requerimientoPerifericos == null)
+            {
+                c.requerimientoPerifericos = new List<Perifericos>();
+            }
+
+            if (c != requerimiento)
+            {
+                c.requerimientoPerifericos.Add(requerimiento);
+                rta = true;
+            }
+            
+            return rta;
+        }
+        #endregion
+
+
+
         /// <summary>
         /// propiedad que devuelva estado de espera.
         /// </summary>
@@ -128,14 +181,96 @@ namespace Entidades
             get {return enEspera; }
             set { enEspera = value; } 
         }
-        /// <summary>
-        /// Sobrescritura del metodo to string que retorna la informacion del cliente.
-        /// </summary>
-        /// <returns></returns>
-        public override string Mostrar()
+
+        public string MostrarClienteConRequerimientos()
         {
-            return base.Mostrar();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(this.Mostrar());
+            if (RequerimientosHarware is not null && RequerimientosHarware.Count > 0)
+            {
+                sb.AppendLine("Requerimientos hardware.");
+
+                foreach (Hardware hardware in this.RequerimientosHarware)
+                {
+                    sb.AppendLine(hardware.ToString());
+                }
+            }
+
+            if (requerimientoSoftware is not null && requerimientoSoftware.Count > 0)
+            {
+                sb.AppendLine("Requerimientos Software.");
+
+                foreach (Software software in this.requerimientoSoftware)
+                {
+                    sb.AppendLine(software.ToString());
+                }
+            }
+
+            if (RequerimientosJuegos is not null && RequerimientosJuegos.Count > 0)
+            {
+                sb.AppendLine("Requerimientos Juegos.");
+
+                foreach (Juegos juegos in this.requerimientoJuegos)
+                {
+                    sb.AppendLine(juegos.ToString());
+                }
+            }
+
+            return sb.ToString();
         }
 
+
+        public List<Hardware> RequerimientosHarware
+        {
+            get { return this.requerimientoHardware ; }
+        }
+        public List<Software> RequerimientosSoftware
+        {
+            get { return this.requerimientoSoftware ; }
+        }
+        public List<Juegos> RequerimientosJuegos
+        {
+            get { return this.requerimientoJuegos ; }
+        }
+        public List<Perifericos> RequerimientosPerifericos
+        {
+            get { return this.requerimientoPerifericos ; }
+        }
+
+
+        public static bool operator ==(Cliente c1 , string str)
+        {
+            if(c1.Mostrar() == str)
+            {
+                return true;
+            }
+            return false;
+        }
+        public static bool operator !=(Cliente c1, string str )
+        {
+            return !(c1 == str);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+           
+        }
+        public override int GetHashCode()
+        {
+            return this.Edad.GetHashCode() ;
+        }
+
+        public override string ToString()
+        {
+            return this.Mostrar();
+        }
     }
 }

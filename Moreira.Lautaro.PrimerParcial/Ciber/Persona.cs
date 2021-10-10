@@ -50,10 +50,9 @@ namespace Entidades
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine($"------------------------------------------");
-            sb.AppendLine($"Nombre: {Nombre}");
-            sb.AppendLine($"Apellido: {apellido}");
-            sb.AppendLine($"Edad: {edad}");
+            sb.Append($"Nombre: {Nombre}, ");
+            sb.Append($"Apellido: {apellido}, ");
+            sb.Append($"Edad: {edad}, ");
             sb.AppendLine($"DNI: {dni}");
 
             return sb.ToString();
@@ -79,5 +78,22 @@ namespace Entidades
             return !(p1 == p2);            
         }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Nombre.GetHashCode() + this.apellido.GetHashCode();
+        }
     }
 }
