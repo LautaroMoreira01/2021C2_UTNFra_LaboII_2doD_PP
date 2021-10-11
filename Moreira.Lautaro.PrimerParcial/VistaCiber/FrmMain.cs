@@ -11,18 +11,21 @@ using Entidades;
 
 namespace VistaCiber
 {
-    public partial class MainForm : Form
+    public partial class FrmMain : Form
     {
         //Centrar todos los forms.
         //hacer modales los que sean necesarios.
         #region clientes
         Cliente c1 = new Cliente("Lautaro", "Moreira", 32, 43368964);
         
-        Cliente c2 = new Cliente("Juan", "Roman" , 42 , 43368964);
-        Cliente c3 = new Cliente("Esteban", "Martinez" , 18 , 43368964);
-        Cliente c4 = new Cliente("Nicolas", "Alvares" , 17 , 43368964);
-        Cliente c5 = new Cliente("Franco", "Torres", 25 , 43368964);
-        Cliente c6 = new Cliente("Ignacio", "Sosa" , 30 , 43368964);
+        Cliente c2 = new Cliente("Juan", "Roman" , 42 , 32456987);
+        Cliente c3 = new Cliente("Esteban", "Martinez" , 18 , 12654789);
+        Cliente c4 = new Cliente("Nicolas", "Alvares" , 17 , 32147852);
+        Cliente c5 = new Cliente("Franco", "Torres", 25 , 36547892);
+        Cliente c6 = new Cliente("Ignacio", "Sosa" , 30 , 12457865);
+        Cliente c7 = new Cliente("Ricardo", "Fort" , 33 , 25468975);
+        Cliente c8 = new Cliente("Mauricio", "Cerizza" , 18, 54785432);
+        Cliente c9 = new Cliente("Tobias", "Perez" , 42 , 12548796);
         Queue<Cliente> clientes = new Queue<Cliente>();
         #endregion
         #region computadoras
@@ -100,7 +103,7 @@ namespace VistaCiber
         List<Telefono> telefonos = new List<Telefono>();
         #endregion
 
-        public MainForm()
+        public FrmMain()
         {
             InitializeComponent();
         }
@@ -109,14 +112,32 @@ namespace VistaCiber
         private void MainForm_Load(object sender, EventArgs e)
         {
             clientes.Enqueue(c1);
-            if (c1 + Hardware.Ram64MB);
-            if (c1 + Hardware.PlacaVideo);
+            if (c1 + Hardware.Ram64MB) { }
+            if (c1 + Hardware.PlacaVideo) { }
 
             clientes.Enqueue(c2);
+            if (c2 + Hardware.LectorDisquetes) { }
+
             clientes.Enqueue(c3);
+            if (c3 + Hardware.PlacaVideo) { }
+            if (c3 + Juegos.DiabloII) { }
+
             clientes.Enqueue(c4);
+            if (c4 + Hardware.LectorCd) { }
+            if (c4 + Juegos.AgeOfEmpiresII) { }
+
             clientes.Enqueue(c5);
+            if (c5 + Perifericos.Auriculares) { }
+            if (c5 + Perifericos.Microfono) { }
+
             clientes.Enqueue(c6);
+            if (c6 + Perifericos.joystick) { }
+            if (c6 + Juegos.DBZBudokaiTenkaichi3) { }
+
+            clientes.Enqueue(c7);
+            clientes.Enqueue(c8);
+            clientes.Enqueue(c9);
+
 
             computadoras.Add(computadora1);
             computadoras.Add(computadora2);
@@ -139,15 +160,17 @@ namespace VistaCiber
 
             elVicio = new Ciber(clientes , computadoras , telefonos , empleado);
         }
-        private void button1_Click(object sender, EventArgs e)//Eliminar en el codigo de el form
-        {
-
-        }
 
         private void btnMostrarComputadoras_Click(object sender, EventArgs e)
         {
             FrmEquipos frmEquipos = new FrmEquipos(elVicio);
-            frmEquipos.Show();
+            frmEquipos.ShowDialog();
         }
-    }
+
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            FrmHistorial frmHistorial = new FrmHistorial();
+            frmHistorial.ShowDialog();
+        }
+    }v
 }

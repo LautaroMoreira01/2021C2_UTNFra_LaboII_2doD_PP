@@ -94,9 +94,9 @@ namespace Entidades
             {
                 tiempoDeUso = new TimeSpan(0, (int)value.TotalMinutes , (int)value.TotalSeconds );
             }
-            //https://www.youtube.com/watch?v=3IzleQ7UYLA
+
         }
-        public string FinalizarSesion()
+        public virtual string FinalizarSesion()
         {
             StringBuilder sb = new StringBuilder();
 

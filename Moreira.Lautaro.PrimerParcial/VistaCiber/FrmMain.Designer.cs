@@ -1,7 +1,7 @@
 ﻿
 namespace VistaCiber
 {
-    partial class MainForm
+    partial class FrmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -29,60 +29,53 @@ namespace VistaCiber
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnMostrarHistorialDeClientes = new System.Windows.Forms.Button();
             this.btnMostrarComputadoras = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnHistorial = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnMostrarHistorialDeClientes
-            // 
-            this.btnMostrarHistorialDeClientes.Location = new System.Drawing.Point(91, 12);
-            this.btnMostrarHistorialDeClientes.Name = "btnMostrarHistorialDeClientes";
-            this.btnMostrarHistorialDeClientes.Size = new System.Drawing.Size(186, 86);
-            this.btnMostrarHistorialDeClientes.TabIndex = 1;
-            this.btnMostrarHistorialDeClientes.Text = "Mostrar historial de clientes.";
-            this.btnMostrarHistorialDeClientes.UseVisualStyleBackColor = true;
             // 
             // btnMostrarComputadoras
             // 
-            this.btnMostrarComputadoras.Location = new System.Drawing.Point(91, 121);
+            this.btnMostrarComputadoras.Location = new System.Drawing.Point(26, 12);
             this.btnMostrarComputadoras.Name = "btnMostrarComputadoras";
-            this.btnMostrarComputadoras.Size = new System.Drawing.Size(186, 86);
+            this.btnMostrarComputadoras.Size = new System.Drawing.Size(186, 125);
             this.btnMostrarComputadoras.TabIndex = 2;
             this.btnMostrarComputadoras.Text = "Mostrar equipos.";
             this.btnMostrarComputadoras.UseVisualStyleBackColor = true;
             this.btnMostrarComputadoras.Click += new System.EventHandler(this.btnMostrarComputadoras_Click);
             // 
-            // button6
+            // btnHistorial
             // 
-            this.button6.Location = new System.Drawing.Point(91, 239);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(186, 86);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "Mostrar clientes en espera";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnHistorial.Location = new System.Drawing.Point(26, 172);
+            this.btnHistorial.Name = "btnHistorial";
+            this.btnHistorial.Size = new System.Drawing.Size(186, 125);
+            this.btnHistorial.TabIndex = 5;
+            this.btnHistorial.Text = "Mostrar Historial del ciber";
+            this.btnHistorial.UseVisualStyleBackColor = true;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
             // 
-            // MainForm
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 337);
-            this.Controls.Add(this.button6);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(242, 337);
+            this.Controls.Add(this.btnHistorial);
             this.Controls.Add(this.btnMostrarComputadoras);
-            this.Controls.Add(this.btnMostrarHistorialDeClientes);
-            this.MaximumSize = new System.Drawing.Size(417, 376);
-            this.MinimumSize = new System.Drawing.Size(417, 376);
-            this.Name = "MainForm";
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(258, 376);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(258, 376);
+            this.Name = "FrmMain";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainForm";
+            this.Text = "InterLVM";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Button btnMostrarHistorialDeClientes;
         private System.Windows.Forms.Button btnMostrarComputadoras;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnHistorial;
     }
 }

@@ -38,6 +38,7 @@ namespace VistaCiber
             this.btnAsignar = new System.Windows.Forms.Button();
             this.btnLiberar = new System.Windows.Forms.Button();
             this.rtbInformacionTelefono = new System.Windows.Forms.RichTextBox();
+            this.btnCerrar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbCodigoPais
@@ -117,11 +118,22 @@ namespace VistaCiber
             this.rtbInformacionTelefono.TabIndex = 11;
             this.rtbInformacionTelefono.Text = "";
             // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Location = new System.Drawing.Point(102, 268);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(139, 91);
+            this.btnCerrar.TabIndex = 12;
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
             // FrmTelefono
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(359, 404);
+            this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.rtbInformacionTelefono);
             this.Controls.Add(this.btnLiberar);
             this.Controls.Add(this.btnAsignar);
@@ -131,11 +143,15 @@ namespace VistaCiber
             this.Controls.Add(this.tbRestoDelNumero);
             this.Controls.Add(this.tbPrefijoLocalidad);
             this.Controls.Add(this.tbCodigoPais);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(375, 443);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(375, 443);
             this.Name = "FrmTelefono";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmTelefono";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmTelefono_FormClosing);
             this.Load += new System.EventHandler(this.FrmTelefono_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -153,5 +169,6 @@ namespace VistaCiber
         private System.Windows.Forms.Button btnAsignar;
         private System.Windows.Forms.Button btnLiberar;
         private System.Windows.Forms.RichTextBox rtbInformacionTelefono;
+        private System.Windows.Forms.Button btnCerrar;
     }
 }

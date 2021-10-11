@@ -161,149 +161,129 @@ namespace VistaCiber
         }
         private void btnComputadora1_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[0], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora1, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
-
-            }
-            if(frmComputadora.ConfirmarFinalizarSesion == DialogResult.Yes)
-            {
-                CambiarColorYEstadoDeBoton(btnComputadora1, verde, true);
-
-            }
+            LlamarFormComputadora(ciber.ListaComputadoras[0], clienteSeleccionado, btnComputadora1);
         }
+
 
 
         private void btnComputadora2_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[1], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora2, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
-
-            }
+            LlamarFormComputadora(ciber.ListaComputadoras[1], clienteSeleccionado, btnComputadora2);
+           
         }
 
         private void btnComputadora3_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[2], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora3, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
-
-            }
+            LlamarFormComputadora(ciber.ListaComputadoras[2], clienteSeleccionado, btnComputadora3);
         }
 
         private void btnComputadora4_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[3], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora4, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
-
-            }
+            LlamarFormComputadora(ciber.ListaComputadoras[3], clienteSeleccionado, btnComputadora4);
         }
 
         private void btnComputadora5_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[4], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora5, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
+            LlamarFormComputadora(ciber.ListaComputadoras[4], clienteSeleccionado, btnComputadora5);
 
-            }
         }
 
         private void btnComputadora6_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[5], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora6, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
+            LlamarFormComputadora(ciber.ListaComputadoras[5], clienteSeleccionado, btnComputadora6);
 
-            }
         }
 
         private void btnComputadora7_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[6], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora7, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
+            LlamarFormComputadora(ciber.ListaComputadoras[6], clienteSeleccionado, btnComputadora7);
 
-            }
         }
 
         private void btnComputadora8_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[7], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora8, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
-
-            }
+            LlamarFormComputadora(ciber.ListaComputadoras[7], clienteSeleccionado, btnComputadora8);
         }
 
         private void btnComputadora9_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[8], clienteSeleccionado);
-            DialogResult dialogResult = frmComputadora.ShowDialog();
-            if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora9, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
+            LlamarFormComputadora(ciber.ListaComputadoras[8], clienteSeleccionado, btnComputadora9);
 
-            }
         }
 
         private void btnComputadora10_Click(object sender, EventArgs e)
         {
-            frmComputadora frmComputadora = new frmComputadora(ciber.ListaComputadoras[9], clienteSeleccionado);
+            LlamarFormComputadora(ciber.ListaComputadoras[9], clienteSeleccionado, btnComputadora10);
+        }
+
+        private void btnTelefono1_Click(object sender, EventArgs e)
+        {
+            LlamarFormTelefono(ciber.ListaTelefonos[0], clienteSeleccionado, btnTelefono1);
+        }
+
+
+        private void btnTelefono2_Click(object sender, EventArgs e)
+        {
+            LlamarFormTelefono(ciber.ListaTelefonos[1], clienteSeleccionado, btnTelefono2);
+
+        }
+
+        private void btnTelefono3_Click(object sender, EventArgs e)
+        {
+            LlamarFormTelefono(ciber.ListaTelefonos[2], clienteSeleccionado, btnTelefono3);
+
+        }
+
+        private void btnTelefono4_Click(object sender, EventArgs e)
+        {
+            LlamarFormTelefono(ciber.ListaTelefonos[3], clienteSeleccionado, btnTelefono4);
+
+        }
+
+        private void btnTelefono5_Click(object sender, EventArgs e)
+        {
+            LlamarFormTelefono(ciber.ListaTelefonos[4], clienteSeleccionado, btnTelefono5);
+
+        }
+        private void LlamarFormTelefono(Telefono telefono, Cliente cliente, Button button)
+        {
+            FrmTelefono frmTelefono = new FrmTelefono(telefono, cliente);
+            DialogResult dialogResult = frmTelefono.ShowDialog();
+
+            if (frmTelefono.ConfirmarAsignacion == DialogResult.Yes)
+            {
+                ciber.ListaClientes.Dequeue();
+                CambiarColorYEstadoDeBoton(button, rojo, false);
+                RefrescarListBoxClientesEnEspera();
+                lbClientesEnEspera.SelectedItem = null;
+            }
+            if (frmTelefono.ConfirmarFinalizarSesion == DialogResult.Yes)
+            {
+                CambiarColorYEstadoDeBoton(button, verde, true);
+
+            }
+
+        }
+        private void LlamarFormComputadora(Computadora computadora, Cliente cliente, Button button)
+        {
+
+            frmComputadora frmComputadora = new frmComputadora(computadora, cliente);
             DialogResult dialogResult = frmComputadora.ShowDialog();
             if (frmComputadora.ConfirmarAsignacion == DialogResult.Yes)
             {
                 ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnComputadora10, rojo, false);
+                CambiarColorYEstadoDeBoton(button, rojo, false);
                 RefrescarListBoxClientesEnEspera();
                 lbClientesEnEspera.SelectedItem = null;
 
             }
+            if (frmComputadora.ConfirmarFinalizarSesion == DialogResult.Yes)
+            {
+                CambiarColorYEstadoDeBoton(button, verde, true);
+
+            }
         }
+
         private void RefrescarListBoxClientesEnEspera()
         {
             lbClientesEnEspera.Items.Clear();
@@ -329,19 +309,5 @@ namespace VistaCiber
             }
         }
 
-        private void btnTelefono1_Click(object sender, EventArgs e)
-        {
-            FrmTelefono frmTelefono = new FrmTelefono(ciber.ListaTelefonos[0], clienteSeleccionado);
-          DialogResult dialogResult = frmTelefono.ShowDialog();
-
-            if (frmTelefono.ConfirmarAsignacion == DialogResult.Yes)
-            {
-                ciber.ListaClientes.Dequeue();
-                CambiarColorYEstadoDeBoton(btnTelefono1, rojo, false);
-                RefrescarListBoxClientesEnEspera();
-                lbClientesEnEspera.SelectedItem = null;
-            }
-            
-        }
     }
 }

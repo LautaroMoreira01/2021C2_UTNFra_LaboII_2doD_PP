@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="VistaCiber.FormPersonasEnEspera">
+    <Position X="6.5" Y="0.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIAACAAAAACBACCAAACAAAAAAgAAAAAAAAAACA=</HashCode>
+      <FileName>FormPersonasEnEspera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VistaCiber.frmComputadora">
+    <Position X="6.5" Y="11" Width="5" />
+    <TypeIdentifier>
+      <HashCode>ACKAIAAIAKJEAEAAiACAAABCgAIQABAAAEABAEBAAIA=</HashCode>
+      <FileName>frmComputadora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VistaCiber.FrmEquipos">
+    <Position X="0.5" Y="3.5" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>IAAEADAAACIAABACGA+BAQgmAIAAAACQAAIAAGQAAAA=</HashCode>
+      <FileName>FrmEquipos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VistaCiber.FrmHistorial">
+    <Position X="3.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAATAAAAAAAACAAAACAAAIAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>FrmHistorial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VistaCiber.FrmMain">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACABAAAAAACAAAACAAAgAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VistaCiber.FrmTelefono">
+    <Position X="6.5" Y="4.25" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>sACEIBAIAKBAAAIAAADAQAADggAAABAEBAAAAEAAAAI=</HashCode>
+      <FileName>FrmTelefono.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

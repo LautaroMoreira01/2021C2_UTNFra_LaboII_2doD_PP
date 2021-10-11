@@ -76,6 +76,7 @@ namespace VistaCiber
             this.btnTelefono5.TabIndex = 14;
             this.btnTelefono5.Text = "T05";
             this.btnTelefono5.UseVisualStyleBackColor = true;
+            this.btnTelefono5.Click += new System.EventHandler(this.btnTelefono5_Click);
             // 
             // btnTelefono4
             // 
@@ -85,6 +86,7 @@ namespace VistaCiber
             this.btnTelefono4.TabIndex = 13;
             this.btnTelefono4.Text = "T04";
             this.btnTelefono4.UseVisualStyleBackColor = true;
+            this.btnTelefono4.Click += new System.EventHandler(this.btnTelefono4_Click);
             // 
             // btnTelefono3
             // 
@@ -94,6 +96,7 @@ namespace VistaCiber
             this.btnTelefono3.TabIndex = 12;
             this.btnTelefono3.Text = "T03";
             this.btnTelefono3.UseVisualStyleBackColor = true;
+            this.btnTelefono3.Click += new System.EventHandler(this.btnTelefono3_Click);
             // 
             // btnTelefono2
             // 
@@ -103,6 +106,7 @@ namespace VistaCiber
             this.btnTelefono2.TabIndex = 11;
             this.btnTelefono2.Text = "T02";
             this.btnTelefono2.UseVisualStyleBackColor = true;
+            this.btnTelefono2.Click += new System.EventHandler(this.btnTelefono2_Click);
             // 
             // btnTelefono1
             // 
@@ -283,9 +287,13 @@ namespace VistaCiber
             this.Controls.Add(this.btnClientesEnEspera);
             this.Controls.Add(this.gbTelefonos);
             this.Controls.Add(this.gbComputadoras);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(816, 632);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(816, 632);
             this.Name = "FrmEquipos";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Equipos";
             this.Load += new System.EventHandler(this.FrmEquipos_Load);

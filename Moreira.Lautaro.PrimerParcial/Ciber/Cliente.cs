@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public class Cliente : Persona
+    public sealed class Cliente : Persona
     {
         private List<Software> requerimientoSoftware;
         private List<Hardware> requerimientoHardware;
@@ -15,14 +15,14 @@ namespace Entidades
         private Telefono.ETipo requerimientoTipoTelefono;
 
         private bool enEspera;//En espera true o ya fue atendido false 
- 
 
-        public Cliente(string nombre, string apellido, int edad , long dni) : base(nombre, apellido, edad , dni)
+
+        public Cliente(string nombre, string apellido, int edad, long dni) : base(nombre, apellido, edad, dni)
         {
             enEspera = true;
         }
-        
-        public Cliente(string nombre, string apellido, int edad, long dni , Telefono.ETipo requerimientoTipoTelefono) : this(nombre, apellido, edad, dni)
+
+        public Cliente(string nombre, string apellido, int edad, long dni, Telefono.ETipo requerimientoTipoTelefono) : this(nombre, apellido, edad, dni)
         {
             this.requerimientoTipoTelefono = requerimientoTipoTelefono;
         }
@@ -47,9 +47,9 @@ namespace Entidades
         public static bool operator ==(Cliente c1, Hardware requerimiento)
         {
             bool rta = false;
-            foreach(Hardware hardware in c1.requerimientoHardware)
+            foreach (Hardware hardware in c1.requerimientoHardware)
             {
-                if(requerimiento == hardware)
+                if (requerimiento == hardware)
                 {
                     rta = true;
                     break;
@@ -106,7 +106,7 @@ namespace Entidades
             bool rta = false;
             foreach (Juegos juego in c1.requerimientoJuegos)
             {
-                if (requerimiento == juego )
+                if (requerimiento == juego)
                 {
                     rta = true;
                     break;
@@ -139,7 +139,7 @@ namespace Entidades
         public static bool operator ==(Cliente c1, Perifericos requerimiento)
         {
             bool rta = false;
-            foreach (Perifericos periferico in c1.requerimientoJuegos)
+            foreach (Perifericos periferico in c1.requerimientoPerifericos)
             {
                 if (requerimiento == periferico)
                 {
@@ -166,7 +166,7 @@ namespace Entidades
                 c.requerimientoPerifericos.Add(requerimiento);
                 rta = true;
             }
-            
+
             return rta;
         }
         #endregion
@@ -178,13 +178,14 @@ namespace Entidades
         /// </summary>
         public bool EnEspera
         {
-            get {return enEspera; }
-            set { enEspera = value; } 
+            get { return enEspera; }
+            set { enEspera = value; }
         }
 
         public string MostrarClienteConRequerimientos()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("-------------------------------------------------------");
             sb.AppendLine(this.Mostrar());
             if (RequerimientosHarware is not null && RequerimientosHarware.Count > 0)
             {
@@ -215,6 +216,7 @@ namespace Entidades
                     sb.AppendLine(juegos.ToString());
                 }
             }
+            sb.AppendLine("-------------------------------------------------------");
 
             return sb.ToString();
         }
@@ -222,31 +224,31 @@ namespace Entidades
 
         public List<Hardware> RequerimientosHarware
         {
-            get { return this.requerimientoHardware ; }
+            get { return this.requerimientoHardware; }
         }
         public List<Software> RequerimientosSoftware
         {
-            get { return this.requerimientoSoftware ; }
+            get { return this.requerimientoSoftware; }
         }
         public List<Juegos> RequerimientosJuegos
         {
-            get { return this.requerimientoJuegos ; }
+            get { return this.requerimientoJuegos; }
         }
         public List<Perifericos> RequerimientosPerifericos
         {
-            get { return this.requerimientoPerifericos ; }
+            get { return this.requerimientoPerifericos; }
         }
 
 
-        public static bool operator ==(Cliente c1 , string str)
+        public static bool operator ==(Cliente c1, string str)
         {
-            if(c1.Mostrar() == str)
+            if (c1.Mostrar() == str)
             {
                 return true;
             }
             return false;
         }
-        public static bool operator !=(Cliente c1, string str )
+        public static bool operator !=(Cliente c1, string str)
         {
             return !(c1 == str);
         }
@@ -261,11 +263,11 @@ namespace Entidades
             {
                 return false;
             }
-           
+
         }
         public override int GetHashCode()
         {
-            return this.Edad.GetHashCode() ;
+            return this.Edad.GetHashCode();
         }
 
         public override string ToString()

@@ -9,14 +9,6 @@ namespace Entidades
     public class Usuario : Persona
     {   
         
-        
-        //NO AVANCE CON ESTA CLASE
-        //NO AVANCE CON ESTA CLASE
-        //NO AVANCE CON ESTA CLASE
-        //NO AVANCE CON ESTA CLASE
-        //NO AVANCE CON ESTA CLASE
-
-
         private DateTime horaDeEntrada;
         private DateTime horaDeSalida;
         private TimeSpan HorasTrabajadas;
@@ -24,7 +16,7 @@ namespace Entidades
             : base( nombre , apellido , edad , dni)
         {
 
-            horaDeEntrada = DateTime.Now; //Empieza a contar cuando inicializan la persona
+            horaDeEntrada = DateTime.Now; 
             
         }
         public TimeSpan HoraDeEntrada
@@ -45,9 +37,7 @@ namespace Entidades
                     return new TimeSpan(horaDeEntrada.Hour, horaDeEntrada.Minute, horaDeEntrada.Second); 
                 }
             }
-            //Deberia ser cuando cierra el ciber?
-            //O metodo ficharHoraDeSalida con un datetime/
-            set//No se le puede asignar una hora de salida menor que la hora de entrada.
+            set
             {
                 TimeSpan hrEntrada = new TimeSpan(horaDeEntrada.Hour, horaDeEntrada.Minute, horaDeEntrada.Second);
 

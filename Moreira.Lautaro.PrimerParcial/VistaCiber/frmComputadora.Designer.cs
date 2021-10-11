@@ -167,11 +167,14 @@ namespace VistaCiber
             this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.rtbInformacionComputadora);
             this.HelpButton = true;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(300, 489);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(300, 489);
             this.Name = "frmComputadora";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmComputadora";
+            this.Text = "Computadora";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmComputadora_FormClosing);
             this.Load += new System.EventHandler(this.frmComputadora_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nupMinutos)).EndInit();

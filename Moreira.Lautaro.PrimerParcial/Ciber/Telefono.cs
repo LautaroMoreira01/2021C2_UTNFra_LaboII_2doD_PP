@@ -10,8 +10,7 @@ namespace Entidades
     {
         private ETipo tipo;
         private string numero;
-        private ETipoLlamada tipoLlamada;
-
+        
         public enum ETipoLlamada //Pasarla a un archivo donde este sola.
         {
             Local, LargaDistancia, Internacional
@@ -42,24 +41,47 @@ namespace Entidades
                 sb.AppendLine($"---------------------Llamada---------------------");
                 sb.AppendLine($"Numero destino: {numero}");
                 sb.AppendLine($"Tipo de llamda: {TipoLlamada}");
-                sb.AppendLine($"Duracion de llamda: {TiempoDeUso.Minutes}:{TiempoDeUso.Seconds}");
-                sb.AppendLine($"Coste de llamda: {CalcularCostoDeUso()}");//Fijate esto te calcula mal 
+
                 if (!EstaLibre)
                 {
                     sb.AppendLine($"Estado de llamda: En curso");
                 }
                 else
                 {
+                    sb.AppendLine($"Duracion de llamda: {TiempoDeUso.Minutes}:{TiempoDeUso.Seconds}");
+                    sb.AppendLine($"Coste de llamda: {CalcularCostoDeUso()}");
                     sb.AppendLine($"Estado de llamda: Finalizada");
                 }
             }
             return sb.ToString();
         }
+        //public string MostrarInformacionLlamadaParaFinalizar()
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append($"{base.Mostrar()}");
+        //    sb.AppendLine($"Tipo: {Tipo.ToString()}");
+        //    if (numero != null)
+        //    {
+        //        sb.AppendLine($"---------------------Llamada---------------------");
+        //        sb.AppendLine($"Numero destino: {numero}");
+        //        sb.AppendLine($"Tipo de llamda: {TipoLlamada}");
 
+        //        sb.AppendLine($"Estado de llamda: En curso");
+                
+        //        else
+        //        {
+        //            sb.AppendLine($"Duracion de llamda: {TiempoDeUso.Minutes}:{TiempoDeUso.Seconds}");
+        //            sb.AppendLine($"Coste de llamda: {CalcularCostoDeUso()}");
+        //            sb.AppendLine($"Estado de llamda: Finalizada");
+        //        }
+        //    }
+        //    return sb.ToString();
+
+        //}
         protected override float CalcularCostoDeUso()
         {
 
-            return (float)(CostoPorZona * (TiempoDeUso.TotalSeconds + (TiempoDeUso.TotalMinutes * 60)));
+            return (float)(CostoPorZona * (((int)TiempoDeUso.TotalSeconds) + (((int)TiempoDeUso.TotalMinutes) * 60)));
         }
     
         /// <summary>
@@ -152,11 +174,12 @@ namespace Entidades
         {
             get
             {
-                if (TipoLlamada == ETipoLlamada.Internacional)
+                ETipoLlamada tipoDeLlamada = TipoLlamada;
+                if (tipoDeLlamada == ETipoLlamada.Internacional)
                 {
                     return 5.00F;
                 }
-                else if (TipoLlamada == ETipoLlamada.LargaDistancia)
+                else if (tipoDeLlamada == ETipoLlamada.LargaDistancia)
                 {
                     return 2.50F;
                 }
@@ -191,6 +214,16 @@ namespace Entidades
                 }
             }
 
+        }
+        public override string FinalizarSesion()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("-----------Llamada-----------");
+            sb.AppendLine($"Tipo de llamada: {TipoLlamada}");
+            sb.AppendLine($"Costo por minuto: {CostoPorZona}");
+            sb.AppendLine(base.FinalizarSesion());
+            
+            return sb.ToString() ;
         }
         /// <summary>
         /// Enum con los tipos de telefonos
