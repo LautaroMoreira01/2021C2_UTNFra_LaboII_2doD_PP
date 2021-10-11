@@ -53,10 +53,10 @@ namespace Entidades
         {
             get {  return HoraDeEntrada - HoraDeSalida ; } 
         }
-        public override string Mostrar()
+        public override string MostrarInformacionPersonal()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(base.Mostrar());
+            sb.AppendLine(base.MostrarInformacionPersonal());
             sb.AppendLine($"Hora de entrada: {horaDeEntrada.Hour}");
             if (horaDeSalida != DateTime.MinValue )//Si la hora de salida no fue inicializada el valor es DateTime.minValue
             {
@@ -68,7 +68,7 @@ namespace Entidades
         }
         public override string ToString()
         {
-            return Mostrar();
+            return MostrarInformacionPersonal();
         }
 
 

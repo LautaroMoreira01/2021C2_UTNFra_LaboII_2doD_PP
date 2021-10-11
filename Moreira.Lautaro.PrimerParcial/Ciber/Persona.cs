@@ -46,7 +46,7 @@ namespace Entidades
         /// Metodo mostrar  de persona que retorna la informacion.
         /// </summary>
         /// <returns>Informacion de la persona en un string</returns>
-        public virtual string Mostrar()
+        public virtual string MostrarInformacionPersonal()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -78,19 +78,34 @@ namespace Entidades
             return !(p1 == p2);            
         }
 
+        /// <summary>
+        /// Sobrescritura del metodo Equals.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns>false si son de distinto tipmo o es nulo.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(this, obj))
+
+            if (obj.GetType() != typeof(Persona)) 
             {
-                return true;
+                return false;
             }
-            else
+            if (ReferenceEquals(null, obj)) 
             {
                 return false;
             }
 
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            return false;
         }
 
+        /// <summary>
+        /// Sobreescritura del metodo.
+        /// </summary>
+        /// <returns>suma del gethashCode de nombre y el de apellido.</returns>
         public override int GetHashCode()
         {
             return this.Nombre.GetHashCode() + this.apellido.GetHashCode();

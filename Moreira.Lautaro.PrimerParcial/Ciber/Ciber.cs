@@ -37,7 +37,7 @@ namespace Entidades
             {
                 if (item.EnEspera)
                 {
-                    sb.Append($"{item.Mostrar()}");
+                    sb.Append($"{item.MostrarInformacionPersonal()}");
                 }
             }
 

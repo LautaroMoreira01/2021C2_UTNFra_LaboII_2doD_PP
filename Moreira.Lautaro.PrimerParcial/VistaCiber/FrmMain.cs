@@ -172,5 +172,5 @@ namespace VistaCiber
             FrmHistorial frmHistorial = new FrmHistorial();
             frmHistorial.ShowDialog();
         }
-    }v
+    }
 }

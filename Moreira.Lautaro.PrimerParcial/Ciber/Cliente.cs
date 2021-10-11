@@ -186,7 +186,7 @@ namespace Entidades
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("-------------------------------------------------------");
-            sb.AppendLine(this.Mostrar());
+            sb.AppendLine(this.MostrarInformacionPersonal());
             if (RequerimientosHarware is not null && RequerimientosHarware.Count > 0)
             {
                 sb.AppendLine("Requerimientos hardware.");
@@ -242,7 +242,7 @@ namespace Entidades
 
         public static bool operator ==(Cliente c1, string str)
         {
-            if (c1.Mostrar() == str)
+            if (c1.MostrarInformacionPersonal() == str)
             {
                 return true;
             }
@@ -272,7 +272,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return this.Mostrar();
+            return this.MostrarInformacionPersonal();
         }
     }
 }
