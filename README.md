@@ -58,9 +58,9 @@ y nos aparecer la informacion de la maquina con sus componentes y juegos en el c
 
 ## Diagrama de clases
 
-###Entidades.
+### Entidades.
 ![Diagrama de clases entidades](Assets/EntidadesClassDiagram.png)
-###Formularios
+### Formularios
 ![Diagrama de clases formularios ](Assets/FormsClassDiagram.png)
 
 
