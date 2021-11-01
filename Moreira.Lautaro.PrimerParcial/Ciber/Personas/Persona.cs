@@ -90,11 +90,7 @@ namespace Entidades
         /// <returns>false si son de distinto tipo o es nulo.</returns>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-            else if (obj.GetType() == GetType() && ((Persona)obj).dni == dni)
+            if (obj is not null && obj.GetType() == GetType() && (Persona)obj == this)
             {
                 return true;
             }

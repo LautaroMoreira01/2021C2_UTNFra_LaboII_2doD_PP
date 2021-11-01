@@ -135,6 +135,7 @@ namespace Entidades
             }
             return rta;
         }
+        
         #endregion
         #region Agregar Juegos
         /// <summary>
@@ -329,11 +330,7 @@ namespace Entidades
         /// <returns>si obj es nulo false, si el tipo de obj es el mismo de el objeto a comparar y el dni es el mismo true si no false.</returns>
         public override bool Equals(object obj)
         {
-            if(obj == null )
-            {
-                return false;
-            }
-            else if(obj.GetType() == GetType() && ((ClienteComputadora)obj).dni == this.dni)
+            if (obj is not null && obj.GetType() == GetType() && (ClienteComputadora)obj == this)
             {
                 return true;
             }
