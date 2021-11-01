@@ -15,6 +15,7 @@ namespace VistaCiber
     {
         private Ciber ciber;
         private Cliente clienteSeleccionado;
+        private Equipo equipoFinalizado;
 
         private Color rojo = Color.FromArgb(245, 37, 22);
         private Color verde = Color.FromArgb(75, 192, 17);
@@ -22,16 +23,33 @@ namespace VistaCiber
         public FrmEquipos(Ciber ciber)
         {
             InitializeComponent();
-            this.ciber= ciber;
+            this.ciber = ciber;
         }
-
+        public Equipo EquipoFinalizado 
+        { 
+            get 
+            { 
+                return equipoFinalizado; 
+            }
+            set
+            {
+                equipoFinalizado = value;
+            }
+        }
+        
         private void FrmEquipos_Load(object sender, EventArgs e)
         {
-            foreach ( Button button in gbComputadoras.Controls)
+            ActualizarFormulario();
+            CargarListaClientes();
+        }
+
+        private void ActualizarFormulario()
+        {
+            foreach (Button button in gbComputadoras.Controls)
             {
-                for (int i = 0; i < ciber.ListaComputadoras.Count ; i++)
+                for (int i = 0; i < ciber.ListaComputadoras.Count; i++)
                 {
-                    if(ciber.ListaComputadoras[i].Identificador == button.Text)
+                    if (ciber.ListaComputadoras[i].Identificador == button.Text)
                     {
                         if (ciber.ListaComputadoras[i].EstaLibre)
                         {
@@ -42,7 +60,8 @@ namespace VistaCiber
                         {
                             CambiarColorYEstadoDeBoton(button, rojo, false);
                         }
-                    }     
+                        toolTip1.SetToolTip(button, ciber.ListaComputadoras[i].ToString());
+                    }
                 }
             }
 
@@ -50,12 +69,12 @@ namespace VistaCiber
             {
                 for (int i = 0; i < ciber.ListaTelefonos.Count; i++)
                 {
-                    if (ciber.ListaTelefonos[i].Identificador == button.Text)
+                    if (ciber[i].Identificador == button.Text)
                     {
-                        if (ciber.ListaTelefonos[i].EstaLibre)
+                        if (ciber[i].EstaLibre)
                         {
-   
-                            CambiarColorYEstadoDeBoton(button, verde ,true);
+
+                            CambiarColorYEstadoDeBoton(button, verde, false);
 
                         }
                         else
@@ -63,14 +82,11 @@ namespace VistaCiber
                             CambiarColorYEstadoDeBoton(button, rojo, false);
 
                         }
+                        toolTip1.SetToolTip(button, ciber[i].ToString());
                     }
                 }
             }
-            CargarListaClientes();
-
         }
-
-
         private void btnClientesEnEspera_Click(object sender, EventArgs e)
         {
             FormPersonasEnEspera frmPersonasEnEspera = new FormPersonasEnEspera(ciber);
@@ -80,47 +96,75 @@ namespace VistaCiber
         private void lbClientesEnEspera_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            foreach(Cliente cliente in ciber.ListaClientes)
+            clienteSeleccionado = (Cliente)lbClientesEnEspera.SelectedItem;
+
+            if (clienteSeleccionado is ClienteComputadora)
             {
 
-                if (cliente == (Persona)lbClientesEnEspera.SelectedItem)
+                foreach (Button button in gbTelefonos.Controls)
                 {
-                    clienteSeleccionado = cliente;
-                    break;
+                    CambiarColorYEstadoDeBoton(button, rojo, false);
                 }
 
-            }
-
-            foreach (Button button in gbComputadoras.Controls)
-            {
-                for (int i = 0; i < ciber.ListaComputadoras.Count; i++)
+                foreach (Button button in gbComputadoras.Controls)
                 {
-                    if(ciber.ListaComputadoras[i].Identificador == button.Text && ciber.ListaComputadoras[i].EstaLibre)
+                    for (int i = 0; i < ciber.ListaComputadoras.Count; i++)
                     {
-                        if ( ciber.VerificarSiLaComputadoraTieneLosRequisitosDelCliente(ciber.ListaComputadoras[i], clienteSeleccionado))
+                        if (ciber.ListaComputadoras[i].Identificador == button.Text && ciber.ListaComputadoras[i].EstaLibre)
                         {
-                            button.BackColor = verde;
-                            if (button.Enabled == false)
+                            if (ciber.VerificarSiLaComputadoraTieneLosRequisitosDelCliente(ciber.ListaComputadoras[i],(ClienteComputadora)clienteSeleccionado))
                             {
-                                button.Enabled = true;
+                                button.BackColor = verde;
+                                if (button.Enabled == false)
+                                {
+                                    button.Enabled = true;
+                                }
+                                break;
                             }
-                            break;
-                        }
-                        else
-                        {
-                            CambiarColorYEstadoDeBoton(button, naranja, false);
-                            break;
+                            else
+                            {
+                                CambiarColorYEstadoDeBoton(button, naranja, false);
+                                break;
+
+                            }
 
                         }
-
                     }
                 }
-                
+            }
+            else
+            {
+                foreach (Button button in gbComputadoras.Controls)
+                {
+                    CambiarColorYEstadoDeBoton(button, rojo, false);
+                }
 
+                foreach (Button button in gbTelefonos.Controls)
+                {
+                    for (int i = 0; i < ciber.ListaTelefonos.Count; i++)
+                    {
+                        if (ciber[i].Identificador == button.Text && ciber[i].EstaLibre)
+                        {
+                            if (ciber.VerificarSiElTelefonoCumpleConLosRequisitosDelCliente(ciber[i], (ClienteTelefono)clienteSeleccionado))
+                            {
+                                button.BackColor = verde;
+                                if (button.Enabled == false)
+                                {
+                                    button.Enabled = true;
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                CambiarColorYEstadoDeBoton(button, naranja, false);
+                                break;
+
+                            }
+                        }
+                    }
+                }
             }
         }
-
-
 
         private void btnFinalizarEquipo_Click(object sender, EventArgs e)
         {
@@ -144,12 +188,12 @@ namespace VistaCiber
             {
                 for (int i = 0; i < gbTelefonos.Controls.Count; i++)
                 {
-                    if (ciber.ListaTelefonos[i].Identificador == button.Text && ciber.ListaTelefonos[i].EstaLibre == false)
+                    if (ciber[i].Identificador == button.Text && ciber[i].EstaLibre == false)
                     {
                         button.Enabled = true;
                         break;
                     }
-                    else if (ciber.ListaTelefonos[i].Identificador == button.Text && ciber.ListaTelefonos[i].EstaLibre)
+                    else if (ciber[i].Identificador == button.Text && ciber[i].EstaLibre)
                     {
                         button.Enabled = false;
                         break;
@@ -163,8 +207,6 @@ namespace VistaCiber
         {
             LlamarFormComputadora(ciber.ListaComputadoras[0], clienteSeleccionado, btnComputadora1);
         }
-
-
 
         private void btnComputadora2_Click(object sender, EventArgs e)
         {
@@ -218,32 +260,29 @@ namespace VistaCiber
 
         private void btnTelefono1_Click(object sender, EventArgs e)
         {
-            LlamarFormTelefono(ciber.ListaTelefonos[0], clienteSeleccionado, btnTelefono1);
+            LlamarFormTelefono(ciber[0], clienteSeleccionado, btnTelefono1);
         }
 
 
         private void btnTelefono2_Click(object sender, EventArgs e)
         {
-            LlamarFormTelefono(ciber.ListaTelefonos[1], clienteSeleccionado, btnTelefono2);
+            LlamarFormTelefono(ciber[1], clienteSeleccionado, btnTelefono2);
 
         }
 
         private void btnTelefono3_Click(object sender, EventArgs e)
         {
-            LlamarFormTelefono(ciber.ListaTelefonos[2], clienteSeleccionado, btnTelefono3);
-
+            LlamarFormTelefono(ciber[2], clienteSeleccionado, btnTelefono3);
         }
 
         private void btnTelefono4_Click(object sender, EventArgs e)
         {
-            LlamarFormTelefono(ciber.ListaTelefonos[3], clienteSeleccionado, btnTelefono4);
-
+            LlamarFormTelefono(ciber[3], clienteSeleccionado, btnTelefono4);
         }
 
         private void btnTelefono5_Click(object sender, EventArgs e)
         {
-            LlamarFormTelefono(ciber.ListaTelefonos[4], clienteSeleccionado, btnTelefono5);
-
+            LlamarFormTelefono(ciber[4], clienteSeleccionado, btnTelefono5);
         }
         private void LlamarFormTelefono(Telefono telefono, Cliente cliente, Button button)
         {
@@ -260,10 +299,13 @@ namespace VistaCiber
             if (frmTelefono.ConfirmarFinalizarSesion == DialogResult.Yes)
             {
                 CambiarColorYEstadoDeBoton(button, verde, true);
+                ciber.HistorialTelefonos.Add(telefono);
 
             }
+            ActualizarFormulario();
 
         }
+
         private void LlamarFormComputadora(Computadora computadora, Cliente cliente, Button button)
         {
 
@@ -275,13 +317,15 @@ namespace VistaCiber
                 CambiarColorYEstadoDeBoton(button, rojo, false);
                 RefrescarListBoxClientesEnEspera();
                 lbClientesEnEspera.SelectedItem = null;
-
             }
             if (frmComputadora.ConfirmarFinalizarSesion == DialogResult.Yes)
             {
-                CambiarColorYEstadoDeBoton(button, verde, true);
 
+                CambiarColorYEstadoDeBoton(button, verde, true);
+                ciber.HistorialComputadoras.Add(computadora);
             }
+
+            ActualizarFormulario();
         }
 
         private void RefrescarListBoxClientesEnEspera()
@@ -309,5 +353,21 @@ namespace VistaCiber
             }
         }
 
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            string message = "Colores de las maquinas:\n" +
+                "Verde: Maquina disponible que cumple los requierimientos del usuario\n" +
+                "Naranaja: Maquina que se encuentra disponible pero no cumple los requirimientos del usuario\n" +
+                "Rojo:Maqiuna que no se encuentra disponible.\n" +
+                "- Si seleccionas un cliente y mantienes el puntero sobre los botones habilitados te aparecera un cuadro con la informacion de la computadora.\n" +
+                "- Para asignar un cliente a una maquina debes seleccionar el cliente en el cuadro de la izquierda y" +
+                "luego seleccionar la maquina que se encuentre en color verde, se abrira un nuevo formulario donde encontraras la informacion de la maquina " +
+                "y podras asignar al usuario antes seleccionado.\n" +
+                "- Para mostrar los clientes en espera presiona el boton \"Mostrar clientes en espera\" que abrira un nuevo formulario.\n" +
+                "- Para finalizar cualquier maquina deberas presionar el boton \"Finalizar\", se habilitaran los equipos que estan siendo" +
+                "utilizados, al seleccionar el que se quiera se habilitara la opcion finalizar en el equipo.";
+                
+            MessageBox.Show(message , "Help" , MessageBoxButtons.OKCancel , MessageBoxIcon.Information);
+        }
     }
 }

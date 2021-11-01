@@ -3,24 +3,28 @@ using System.Text;
 
 namespace Entidades
 {
-    public class Persona
+    public abstract class Persona
     {
         protected string nombre;
         protected string apellido;
         protected int edad;
         protected long dni ;
+        
         /// <summary>
         /// Propiedad que retorna la edad de la persona
         /// </summary>
         public int Edad { get {return edad ; }  }
+        
         /// <summary>
         /// Propiedad que retorna el dni de la persona
         /// </summary>
         public long Dni{ get {return dni ; }  }
+        
         /// <summary>
         /// Propiedad que retorna el nomnre de la persona
         /// </summary>
         public string Nombre { get {return nombre; }  }
+
         /// <summary>
         /// Propiedad que retorna el apellido de la persona
         /// </summary>
@@ -41,7 +45,7 @@ namespace Entidades
             this.dni = dni;
         }
 
-        //El método Mostrar de Persona ¿qué muestra?. El nombre tiene que ser descriptivo
+        
         /// <summary>
         /// Metodo mostrar  de persona que retorna la informacion.
         /// </summary>
@@ -67,6 +71,7 @@ namespace Entidades
         {
             return (p1.nombre == p2.nombre && p1.dni == p2.dni);            
         }
+
         /// <summary>
         /// Sobrecarga del operador != que compara dos personas
         /// </summary>
@@ -82,24 +87,21 @@ namespace Entidades
         /// Sobrescritura del metodo Equals.
         /// </summary>
         /// <param name="obj"></param>
-        /// <returns>false si son de distinto tipmo o es nulo.</returns>
+        /// <returns>false si son de distinto tipo o es nulo.</returns>
         public override bool Equals(object obj)
         {
-
-            if (obj.GetType() != typeof(Persona)) 
+            if (obj == null)
             {
                 return false;
             }
-            if (ReferenceEquals(null, obj)) 
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
+            else if (obj.GetType() == GetType() && ((Persona)obj).dni == dni)
             {
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -108,7 +110,7 @@ namespace Entidades
         /// <returns>suma del gethashCode de nombre y el de apellido.</returns>
         public override int GetHashCode()
         {
-            return this.Nombre.GetHashCode() + this.apellido.GetHashCode();
+            return dni.GetHashCode();
         }
     }
 }

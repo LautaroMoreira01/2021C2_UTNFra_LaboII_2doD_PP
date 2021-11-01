@@ -19,11 +19,6 @@ namespace VistaCiber
             InitializeComponent();
             this.ciber1= ciber;
         }
-        private void FormPersonasEnEspera_Load(object sender, EventArgs e)
-        {
-            
-           
-        }
 
         private void btnMostrarConRequerimientos_Click(object sender, EventArgs e)
         {
@@ -33,7 +28,7 @@ namespace VistaCiber
             }
             this.btnMostrarConRequerimientos.Enabled = false;
 
-            this.rtbListaClientesEnEspera.Text = ciber1.MostrarClientesEnEsperaConRequerimientos(); //Mostrar los clientes en espera con requerimientos.
+            this.rtbListaClientesEnEspera.Text = ciber1.MostrarClientesEnEsperaConRequerimientos(); 
         }
 
         private void btnMostrarSinRequerimientos_Click(object sender, EventArgs e)
@@ -48,6 +43,15 @@ namespace VistaCiber
             this.rtbListaClientesEnEspera.Text = ciber1.MostrarClientesEnEsperaSinRequerimientos();
 
 
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            string message = "Este formulario te permitira visualizar los clientes que se encuentran en espera.\n" +
+                "- Boton \"Mostrar clientes sin requerimientos\": Te permitira vizualizar una lista de clientes solamente con su informacion personal (dni, nombre, apellido, edad).\n" +
+                "- Boton \"Mostrar clientes con requerimientos\": Te permitira vizualizar una lista de clientes la informacion personal y los requerimientos que tengan.";
+
+            MessageBox.Show(message, "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
         }
     }
 }

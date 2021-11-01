@@ -1,4 +1,8 @@
-﻿public enum Perifericos
+﻿
+/// <summary>
+/// enumerado de perifericos 
+/// </summary>
+public enum Perifericos
 {
     Camara,
     Auriculares,

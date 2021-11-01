@@ -1,4 +1,8 @@
-﻿public enum Juegos
+﻿
+/// <summary>
+/// enumerado de juegos
+/// </summary>
+public enum Juegos
 {
 
     TonyHawkProSkaterII,

@@ -8,13 +8,15 @@ namespace Entidades
 {
     public class Computadora : Equipo
     {
-        private const float costoDeUso = 0.50F;//Podes hacer un constructor que devuelva por defecto este valor.
-
+        private const float costoDeUso = 0.50F;
         private List<Hardware> listHardware;
         private List<Juegos> listJuegos;
         private List<Software> listSoftware;
         private List<Perifericos> listPerifericos;
 
+        /// <summary>
+        /// Propiedad que retorna la lista de hardware o la setea
+        /// </summary>
         public List<Hardware> ListHardware
         {
             get
@@ -26,6 +28,10 @@ namespace Entidades
                 listHardware = value;
             }
         }
+
+        /// <summary>
+        /// Propiedad que retorna la lista de juegos o la setea
+        /// </summary>
         public List<Juegos> ListJuegos { 
             get
             {
@@ -36,6 +42,10 @@ namespace Entidades
                 listJuegos = value;
             }
         }
+
+        /// <summary>
+        /// Propiedad que retorna la lista de software o la setea
+        /// </summary>
         public List<Software> ListSoftware
         {
             get
@@ -47,6 +57,10 @@ namespace Entidades
                 listSoftware = value;
             }
         }
+
+        /// <summary>
+        /// Propiedad que retorna la lista de perifericos o la setea
+        /// </summary>
         public List<Perifericos> ListPerifericos
         {
             get
@@ -104,8 +118,12 @@ namespace Entidades
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendFormat($"{base.Mostrar()}"); 
-            sb.AppendLine($"Tiempo de uso: {TiempoDeUso}");
+            sb.AppendFormat($"{base.Mostrar()}");
+            if (!estaLibre)
+            {
+                sb.AppendLine($"Tiempo de uso: {TiempoDeUso}");
+
+            }
             sb.AppendLine($"--------------------------------------");
             sb.AppendLine($"Hardware:");
             foreach (Hardware item in ListHardware)
@@ -138,6 +156,7 @@ namespace Entidades
             return sb.ToString();
 
         }
+
         /// <summary>
         /// Sobrescritura del metodo toString que devuelve la informacion de la computadora.
         /// </summary>
@@ -146,6 +165,11 @@ namespace Entidades
         {
             return Mostrar(); 
         }
+
+        /// <summary>
+        /// Muestra la informacion de la computadora con el software y hardware de esta
+        /// </summary>
+        /// <returns></returns>
         public string MostrarComputadoraConHardwareYSoftware()
         {
             StringBuilder sb = new StringBuilder();
@@ -170,5 +194,14 @@ namespace Entidades
             return sb.ToString();
         }
 
-    }
+        /// <summary>
+        /// Ordena la lista de computadoras pasada por parametro por minutos de uso
+        /// </summary>
+        /// <param name="computadoras"></param>
+        public static void OrdenarComputadorasPorMinutosDeUso(List<Computadora> computadoras)
+        {
+            computadoras.Sort(CompararEquiposPorMinutosDeUso);
+        }
+
+    }   
 }

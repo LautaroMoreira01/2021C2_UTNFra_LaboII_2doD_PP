@@ -8,10 +8,13 @@ namespace Entidades
 {
     public class Telefono : Equipo
     {
-        private ETipo tipo;
+        private ETipo tipoTelefono;
         private string numero;
         
-        public enum ETipoLlamada //Pasarla a un archivo donde este sola.
+        /// <summary>
+        /// Enumerado con los tipos de llamada
+        /// </summary>
+        public enum ETipoLlamada
         {
             Local, LargaDistancia, Internacional
         }
@@ -23,14 +26,14 @@ namespace Entidades
         /// <param name="tipo"></param>
         public Telefono( string identificador , ETipo tipo ) : base(identificador)
         {
-            this.tipo = tipo;
+            this.tipoTelefono = tipo;
         }
 
 
         /// <summary>
         /// Muestra la informacion del telefono con su llamada.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>string con la informacion de la llamada</returns>
         protected override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
@@ -53,31 +56,14 @@ namespace Entidades
                     sb.AppendLine($"Estado de llamda: Finalizada");
                 }
             }
+            sb.AppendLine($"------------------------------------------------");
             return sb.ToString();
         }
-        //public string MostrarInformacionLlamadaParaFinalizar()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    sb.Append($"{base.Mostrar()}");
-        //    sb.AppendLine($"Tipo: {Tipo.ToString()}");
-        //    if (numero != null)
-        //    {
-        //        sb.AppendLine($"---------------------Llamada---------------------");
-        //        sb.AppendLine($"Numero destino: {numero}");
-        //        sb.AppendLine($"Tipo de llamda: {TipoLlamada}");
 
-        //        sb.AppendLine($"Estado de llamda: En curso");
-                
-        //        else
-        //        {
-        //            sb.AppendLine($"Duracion de llamda: {TiempoDeUso.Minutes}:{TiempoDeUso.Seconds}");
-        //            sb.AppendLine($"Coste de llamda: {CalcularCostoDeUso()}");
-        //            sb.AppendLine($"Estado de llamda: Finalizada");
-        //        }
-        //    }
-        //    return sb.ToString();
-
-        //}
+        /// <summary>
+        /// Calcula el costo de uso del telefono, con el tiempo de uso y el costo de minuto por zona
+        /// </summary>
+        /// <returns>float con el costo de uso</returns>
         protected override float CalcularCostoDeUso()
         {
 
@@ -109,10 +95,13 @@ namespace Entidades
                 
             }  
         }
-
+        
+        /// <summary>
+        /// Propiedad que retorna el tipo del telefono.
+        /// </summary>
         public ETipo Tipo
         {
-            get { return tipo; }
+            get { return tipoTelefono; }
         }
 
         /// <summary>
@@ -120,8 +109,6 @@ namespace Entidades
         /// </summary>
         /// <param name="numero">numero a validar</param>
         /// <returns>true si es valida, false si no lo es.</returns>
-
-
         public static bool ValidarNumeroLlamada(string numero)
         {
             bool rta = true;
@@ -143,6 +130,12 @@ namespace Entidades
 
             return rta;
         }
+
+        /// <summary>
+        /// Formate el numero pasado como string
+        /// </summary>
+        /// <param name="numero">numero a formatear</param>
+        /// <returns>retorna el numero formateado sin caracteres especiales</returns>
         private static string FormatearNumero(string numero)
         {
             string[] arrayNumero = null;
@@ -152,7 +145,6 @@ namespace Entidades
             {
                 arrayNumero = numero.Split('+', '-', ' ');
                 rta = string.Concat(arrayNumero);
-                //rta = arrayNumero.Join("", arrayNumero);
             }
             return rta;
 
@@ -169,7 +161,6 @@ namespace Entidades
         /// <summary>
         /// Devuelve el costo por minuto de la llamada dependiendo la zona
         /// </summary>
-
         private float CostoPorZona
         {
             get
@@ -215,6 +206,11 @@ namespace Entidades
             }
 
         }
+
+        /// <summary>
+        /// Finaliza la sesion del telefono
+        /// </summary>
+        /// <returns>retorna un string con la informacion de la llamada finalizada</returns>
         public override string FinalizarSesion()
         {
             StringBuilder sb = new StringBuilder();
@@ -225,12 +221,14 @@ namespace Entidades
             
             return sb.ToString() ;
         }
+
         /// <summary>
-        /// Enum con los tipos de telefonos
+        /// ordena la lista pasada como parametro en forma por los minutos de uso
         /// </summary>
-        public enum ETipo
+        /// <param name="telefonos">lista a ordenar</param>
+        public static void OrdenarTelefonosPorMinutosDeUso(List<Telefono> telefonos)
         {
-            None,ADisco, Teclado
+            telefonos.Sort(CompararEquiposPorMinutosDeUso);
         }
 
     }

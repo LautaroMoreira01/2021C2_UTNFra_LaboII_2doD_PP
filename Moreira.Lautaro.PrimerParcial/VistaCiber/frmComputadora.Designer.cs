@@ -39,13 +39,17 @@ namespace VistaCiber
             this.nupHoras = new System.Windows.Forms.NumericUpDown();
             this.lblHoras = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.btnHelp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nupMinutos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupHoras)).BeginInit();
             this.SuspendLayout();
             // 
             // rtbInformacionComputadora
             // 
-            this.rtbInformacionComputadora.Location = new System.Drawing.Point(0, 0);
+            this.rtbInformacionComputadora.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbInformacionComputadora.Location = new System.Drawing.Point(1, 72);
             this.rtbInformacionComputadora.Name = "rtbInformacionComputadora";
             this.rtbInformacionComputadora.ReadOnly = true;
             this.rtbInformacionComputadora.Size = new System.Drawing.Size(284, 301);
@@ -54,7 +58,8 @@ namespace VistaCiber
             // 
             // btnFinalizar
             // 
-            this.btnFinalizar.Location = new System.Drawing.Point(12, 374);
+            this.btnFinalizar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnFinalizar.Location = new System.Drawing.Point(12, 476);
             this.btnFinalizar.Name = "btnFinalizar";
             this.btnFinalizar.Size = new System.Drawing.Size(121, 61);
             this.btnFinalizar.TabIndex = 1;
@@ -64,7 +69,8 @@ namespace VistaCiber
             // 
             // btnAsignarCliente
             // 
-            this.btnAsignarCliente.Location = new System.Drawing.Point(12, 307);
+            this.btnAsignarCliente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAsignarCliente.Location = new System.Drawing.Point(12, 409);
             this.btnAsignarCliente.Name = "btnAsignarCliente";
             this.btnAsignarCliente.Size = new System.Drawing.Size(121, 61);
             this.btnAsignarCliente.TabIndex = 2;
@@ -74,11 +80,12 @@ namespace VistaCiber
             // 
             // cbTiempoSolicitado
             // 
+            this.cbTiempoSolicitado.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbTiempoSolicitado.FormattingEnabled = true;
             this.cbTiempoSolicitado.Items.AddRange(new object[] {
             "Ingresar tiempo",
             "Libre"});
-            this.cbTiempoSolicitado.Location = new System.Drawing.Point(151, 327);
+            this.cbTiempoSolicitado.Location = new System.Drawing.Point(151, 427);
             this.cbTiempoSolicitado.Name = "cbTiempoSolicitado";
             this.cbTiempoSolicitado.Size = new System.Drawing.Size(121, 23);
             this.cbTiempoSolicitado.TabIndex = 3;
@@ -86,8 +93,9 @@ namespace VistaCiber
             // 
             // lblTiempoSolicitado
             // 
+            this.lblTiempoSolicitado.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblTiempoSolicitado.AutoSize = true;
-            this.lblTiempoSolicitado.Location = new System.Drawing.Point(151, 307);
+            this.lblTiempoSolicitado.Location = new System.Drawing.Point(151, 409);
             this.lblTiempoSolicitado.Name = "lblTiempoSolicitado";
             this.lblTiempoSolicitado.Size = new System.Drawing.Size(101, 15);
             this.lblTiempoSolicitado.TabIndex = 4;
@@ -95,12 +103,13 @@ namespace VistaCiber
             // 
             // nupMinutos
             // 
+            this.nupMinutos.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.nupMinutos.Increment = new decimal(new int[] {
             30,
             0,
             0,
             0});
-            this.nupMinutos.Location = new System.Drawing.Point(224, 417);
+            this.nupMinutos.Location = new System.Drawing.Point(224, 519);
             this.nupMinutos.Name = "nupMinutos";
             this.nupMinutos.ReadOnly = true;
             this.nupMinutos.Size = new System.Drawing.Size(48, 23);
@@ -114,9 +123,10 @@ namespace VistaCiber
             // 
             // lblMinutos
             // 
+            this.lblMinutos.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblMinutos.AutoSize = true;
             this.lblMinutos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblMinutos.Location = new System.Drawing.Point(151, 417);
+            this.lblMinutos.Location = new System.Drawing.Point(151, 519);
             this.lblMinutos.Name = "lblMinutos";
             this.lblMinutos.Size = new System.Drawing.Size(67, 21);
             this.lblMinutos.TabIndex = 6;
@@ -124,8 +134,9 @@ namespace VistaCiber
             // 
             // nupHoras
             // 
+            this.nupHoras.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.nupHoras.InterceptArrowKeys = false;
-            this.nupHoras.Location = new System.Drawing.Point(224, 377);
+            this.nupHoras.Location = new System.Drawing.Point(224, 479);
             this.nupHoras.Name = "nupHoras";
             this.nupHoras.ReadOnly = true;
             this.nupHoras.Size = new System.Drawing.Size(48, 23);
@@ -133,9 +144,10 @@ namespace VistaCiber
             // 
             // lblHoras
             // 
+            this.lblHoras.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblHoras.AutoSize = true;
             this.lblHoras.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblHoras.Location = new System.Drawing.Point(151, 377);
+            this.lblHoras.Location = new System.Drawing.Point(151, 479);
             this.lblHoras.Name = "lblHoras";
             this.lblHoras.Size = new System.Drawing.Size(51, 21);
             this.lblHoras.TabIndex = 8;
@@ -143,7 +155,8 @@ namespace VistaCiber
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(75, 339);
+            this.btnCerrar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnCerrar.Location = new System.Drawing.Point(75, 441);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(114, 75);
             this.btnCerrar.TabIndex = 9;
@@ -151,11 +164,23 @@ namespace VistaCiber
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // btnHelp
+            // 
+            this.btnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHelp.Location = new System.Drawing.Point(197, 12);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(75, 46);
+            this.btnHelp.TabIndex = 10;
+            this.btnHelp.Text = "?";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            // 
             // frmComputadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 450);
+            this.ClientSize = new System.Drawing.Size(284, 633);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.lblHoras);
             this.Controls.Add(this.nupHoras);
@@ -167,15 +192,12 @@ namespace VistaCiber
             this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.rtbInformacionComputadora);
             this.HelpButton = true;
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(300, 489);
-            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(300, 489);
             this.Name = "frmComputadora";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Computadora";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmComputadora_FormClosing);
             this.Load += new System.EventHandler(this.frmComputadora_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nupMinutos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupHoras)).EndInit();
@@ -197,5 +219,7 @@ namespace VistaCiber
         private System.Windows.Forms.Label lblTiempoSolicitado;
 
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.HelpProvider helpProvider1;
+        private System.Windows.Forms.Button btnHelp;
     }
 }

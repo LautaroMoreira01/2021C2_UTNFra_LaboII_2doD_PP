@@ -38,6 +38,7 @@ namespace VistaCiber
             {
                 btnLiberar.Location = new Point(102, 268);
                 btnAsignar.Visible = false;
+                btnAsignar.Enabled = false;
                 lblCodigoPais.Visible = false;
                 lblNumero.Visible = false;
                 lblPrefijo.Visible = false;
@@ -108,12 +109,27 @@ namespace VistaCiber
             Close();
         }
 
-        private void FrmTelefono_FormClosing(object sender, FormClosingEventArgs e)
+
+
+        private void btnHelp_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Seguro que desea salir?", "Salir.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes)
+            string messageCerrar = "- Boton \"Cerrar\": cerrara el formulario.";
+            string messageLiberar = "- Boton \"Liberar\": Liberara la cabina telefonica mostrando el tiempo utilizado y el precio a pagar.";
+
+            string messageAsignar = "- Codigo pais: Aqui ingresaras el codigo pais del numero telefonico.\n" +
+                "- Prefijo localidad: Aqui ingresaras el prefijo de la localidad del numero telefonico.\n" +
+                "- Numero: Aqui ingresaras el resto del numero telefonico.\n" +
+                "Boton \"Asignar\": Le permitira asignar el cliente a la cabina.";
+            
+            if(btnAsignar.Enabled == true)
             {
-                e.Cancel = true;
+                MessageBox.Show(messageAsignar, "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }else if (btnCerrar.Enabled == true)
+            {
+                MessageBox.Show(messageCerrar, "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }else
+            {
+                MessageBox.Show(messageLiberar, "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             }
         }
     }

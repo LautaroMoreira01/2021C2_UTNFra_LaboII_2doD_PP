@@ -36,8 +36,9 @@ namespace VistaCiber
             }
             else
             {
-                btnFinalizar.Location = new  Point(63, 339);
+                btnFinalizar.Location = btnCerrar.Location;
                 btnAsignarCliente.Visible = false;
+                btnAsignarCliente.Enabled = false;
                 lblHoras.Visible = false;
                 lblMinutos.Visible = false;
                 nupHoras.Visible = false;
@@ -69,25 +70,21 @@ namespace VistaCiber
 
         private void btnAsignarCliente_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Esta seguro que desea asignar el cliente a la maquina?", "Confirmar.", MessageBoxButtons.YesNoCancel);
-
+           
             if (cbTiempoSolicitado.SelectedIndex == 0)
             {
                 if (nupHoras.Value >= 0 && (nupHoras.Value >= 1 || nupMinutos.Value >= 30))
                 {
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        computadora.AsignarClienteAEquipo(cliente, new TimeSpan(0, (int)nupHoras.Value, (int)nupMinutos.Value));
-                        confirmarAsigancion = DialogResult.Yes;
-                        this.Close();
-                    }
+                    computadora.AsignarClienteAEquipo(cliente, new TimeSpan(0, (int)nupHoras.Value, (int)nupMinutos.Value));
+                    confirmarAsigancion = DialogResult.Yes;
+                    Close();
                 }
             }
-            else if(dialogResult == DialogResult.Yes)
+            else
             {
                 computadora.AsignarClienteAEquipo(cliente);
                 confirmarAsigancion = DialogResult.Yes;
-                this.Close();
+                Close();
             }
 
         }
@@ -111,33 +108,46 @@ namespace VistaCiber
 
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Esta seguro que desea finalizar la sesion?", "Finalizar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            
+            
+            rtbInformacionComputadora.Text = computadora.FinalizarSesion();
+            btnFinalizar.Enabled = false;
+            btnFinalizar.Visible = false;
+            btnCerrar.Enabled = true;
+            btnCerrar.Visible = true;
 
-            if(dr == DialogResult.Yes)
-            {
-                rtbInformacionComputadora.Text = computadora.FinalizarSesion();
-                btnFinalizar.Enabled = false;
-                btnFinalizar.Visible = false;
-                btnCerrar.Enabled = true;
-                btnCerrar.Visible = true;
-
-                confirmarFinalizarSesion = dr;
-            }
+            confirmarFinalizarSesion = DialogResult.Yes;
         }
 
-
-        private void frmComputadora_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Seguro que desea salir?", "Salir.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes)
-            {
-                e.Cancel = true;
-            }
-        }
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            string messageAsignar = "Para asignar el cliente seleccionado tiene dos opciones.\n" +
+                "libre: la maquina empezara a contar el tiempo desde que el cliente fue asignado.\n" + 
+                "ingresar tiempo: Habra dos nuevos elementos donde se debera ingresar el tiempo (horas y minutos)."; 
+
+            string messageCerrar = "- Boton \"Cerrar\": cerrara el formulario.";
+            string messageLiberar = "- Boton \"Finalizar\": Liberara la computadora mostrando el tiempo utilizado y el precio a pagar.";
+
+
+            if (btnAsignarCliente.Enabled == true)
+            {
+                MessageBox.Show(messageAsignar, "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }
+            else if (btnCerrar.Enabled == true)
+            {
+                MessageBox.Show(messageCerrar, "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(messageLiberar, "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }
+
         }
     }
 }

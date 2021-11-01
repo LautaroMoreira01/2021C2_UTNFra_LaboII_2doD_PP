@@ -1,4 +1,6 @@
-﻿
+﻿/// <summary>
+/// enumerado de los componentes que puede contener una computadora
+/// </summary>
 public enum Hardware
 {
     Ram64MB,

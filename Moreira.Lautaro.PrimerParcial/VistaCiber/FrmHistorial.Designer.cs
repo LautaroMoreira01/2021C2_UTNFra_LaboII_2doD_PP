@@ -33,11 +33,15 @@ namespace VistaCiber
             this.lbFormasDeOrdenar = new System.Windows.Forms.ListBox();
             this.nupTamanioFuente = new System.Windows.Forms.NumericUpDown();
             this.lblFont = new System.Windows.Forms.Label();
+            this.btnHelp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nupTamanioFuente)).BeginInit();
             this.SuspendLayout();
             // 
             // rtbHistorial
             // 
+            this.rtbHistorial.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbHistorial.Location = new System.Drawing.Point(12, 112);
             this.rtbHistorial.Name = "rtbHistorial";
             this.rtbHistorial.Size = new System.Drawing.Size(776, 326);
@@ -58,40 +62,67 @@ namespace VistaCiber
             "Juego mas pedido por los clientes"});
             this.lbFormasDeOrdenar.Location = new System.Drawing.Point(12, 12);
             this.lbFormasDeOrdenar.Name = "lbFormasDeOrdenar";
-            this.lbFormasDeOrdenar.Size = new System.Drawing.Size(407, 94);
+            this.lbFormasDeOrdenar.Size = new System.Drawing.Size(546, 94);
             this.lbFormasDeOrdenar.TabIndex = 1;
+            this.lbFormasDeOrdenar.SelectedIndexChanged += new System.EventHandler(this.lbFormasDeOrdenar_SelectedIndexChanged);
             // 
             // nupTamanioFuente
             // 
-            this.nupTamanioFuente.Location = new System.Drawing.Point(445, 57);
+            this.nupTamanioFuente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nupTamanioFuente.Location = new System.Drawing.Point(564, 30);
+            this.nupTamanioFuente.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nupTamanioFuente.MinimumSize = new System.Drawing.Size(120, 0);
             this.nupTamanioFuente.Name = "nupTamanioFuente";
             this.nupTamanioFuente.Size = new System.Drawing.Size(120, 23);
             this.nupTamanioFuente.TabIndex = 2;
+            this.nupTamanioFuente.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nupTamanioFuente.ValueChanged += new System.EventHandler(this.nupTamanioFuente_ValueChanged);
             // 
             // lblFont
             // 
+            this.lblFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFont.AutoSize = true;
-            this.lblFont.Location = new System.Drawing.Point(445, 39);
+            this.lblFont.Location = new System.Drawing.Point(564, 12);
             this.lblFont.Name = "lblFont";
             this.lblFont.Size = new System.Drawing.Size(114, 15);
             this.lblFont.TabIndex = 3;
             this.lblFont.Text = "Tamaño de la fuente";
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHelp.Location = new System.Drawing.Point(707, 12);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(81, 45);
+            this.btnHelp.TabIndex = 4;
+            this.btnHelp.Text = "?";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // FrmHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.lblFont);
             this.Controls.Add(this.nupTamanioFuente);
             this.Controls.Add(this.lbFormasDeOrdenar);
             this.Controls.Add(this.rtbHistorial);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(816, 489);
-            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "FrmHistorial";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial";
+            this.Load += new System.EventHandler(this.FrmHistorial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nupTamanioFuente)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -104,5 +135,6 @@ namespace VistaCiber
         private System.Windows.Forms.ListBox lbFormasDeOrdenar;
         private System.Windows.Forms.NumericUpDown nupTamanioFuente;
         private System.Windows.Forms.Label lblFont;
+        private System.Windows.Forms.Button btnHelp;
     }
 }

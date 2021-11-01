@@ -13,19 +13,18 @@ namespace VistaCiber
 {
     public partial class FrmMain : Form
     {
-        //Centrar todos los forms.
-        //hacer modales los que sean necesarios.
+
         #region clientes
-        Cliente c1 = new Cliente("Lautaro", "Moreira", 32, 43368964);
-        
-        Cliente c2 = new Cliente("Juan", "Roman" , 42 , 32456987);
-        Cliente c3 = new Cliente("Esteban", "Martinez" , 18 , 12654789);
-        Cliente c4 = new Cliente("Nicolas", "Alvares" , 17 , 32147852);
-        Cliente c5 = new Cliente("Franco", "Torres", 25 , 36547892);
-        Cliente c6 = new Cliente("Ignacio", "Sosa" , 30 , 12457865);
-        Cliente c7 = new Cliente("Ricardo", "Fort" , 33 , 25468975);
-        Cliente c8 = new Cliente("Mauricio", "Cerizza" , 18, 54785432);
-        Cliente c9 = new Cliente("Tobias", "Perez" , 42 , 12548796);
+        ClienteComputadora c1 = new ClienteComputadora("Lautaro", "Moreira", 32, 43368964);
+        ClienteTelefono c2 = new ClienteTelefono("Mauricio", "Cerizza", 18, 54785432);
+        ClienteComputadora c3 = new ClienteComputadora("Esteban", "Martinez" , 18 , 12654789);
+        ClienteComputadora c4 = new ClienteComputadora("Nicolas", "Alvares" , 17 , 32147852);
+        ClienteComputadora c5 = new ClienteComputadora("Franco", "Torres", 25 , 36547892);
+        ClienteComputadora c6 = new ClienteComputadora("Ignacio", "Sosa" , 30 , 12457865);
+        ClienteTelefono c7 = new ClienteTelefono("Ricardo", "Fort" , 33 , 25468975);
+        ClienteComputadora c8 = new ClienteComputadora("Juan", "Roman" , 42 , 32456987);
+
+        ClienteTelefono c9 = new ClienteTelefono("Tobias", "Perez" , 42 , 12548796);
         Queue<Cliente> clientes = new Queue<Cliente>();
         #endregion
         #region computadoras
@@ -90,25 +89,35 @@ namespace VistaCiber
             new List<Software>() { Software.InternetExplorer, Software.Encarta, Software.NetScape},
             new List<Perifericos>() { Perifericos.Camara , Perifericos.Auriculares, Perifericos.Microfono },
             "C10");
+
         List<Computadora> computadoras = new List<Computadora>();
         #endregion
+
+        
         Ciber elVicio;
         #region telefonos
 
-        Telefono t1 = new Telefono("T01" , Telefono.ETipo.ADisco);
-        Telefono t2 = new Telefono("T02" , Telefono.ETipo.Teclado);
-        Telefono t3 = new Telefono("T03" , Telefono.ETipo.ADisco);
-        Telefono t4 = new Telefono("T04" , Telefono.ETipo.Teclado);
-        Telefono t5 = new Telefono("T05" , Telefono.ETipo.Teclado);
+        Telefono t1 = new Telefono("T01" , ETipo.ADisco);
+        Telefono t2 = new Telefono("T02" , ETipo.Teclado);
+        Telefono t3 = new Telefono("T03" , ETipo.ADisco);
+        Telefono t4 = new Telefono("T04" , ETipo.Teclado);
+        Telefono t5 = new Telefono("T05" , ETipo.Teclado);
         List<Telefono> telefonos = new List<Telefono>();
         #endregion
 
+        /// <summary>
+        /// Constructor del formulario principal
+        /// </summary>
         public FrmMain()
         {
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// Load el formulario principal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
             clientes.Enqueue(c1);
@@ -116,7 +125,6 @@ namespace VistaCiber
             if (c1 + Hardware.PlacaVideo) { }
 
             clientes.Enqueue(c2);
-            if (c2 + Hardware.LectorDisquetes) { }
 
             clientes.Enqueue(c3);
             if (c3 + Hardware.PlacaVideo) { }
@@ -135,7 +143,10 @@ namespace VistaCiber
             if (c6 + Juegos.DBZBudokaiTenkaichi3) { }
 
             clientes.Enqueue(c7);
+
             clientes.Enqueue(c8);
+            if (c8 + Hardware.LectorDisquetes) { }
+
             clientes.Enqueue(c9);
 
 
@@ -156,9 +167,11 @@ namespace VistaCiber
             telefonos.Add(t4);
             telefonos.Add(t5);
 
-            Usuario empleado = new Usuario("Lautaro", "Moreira", 20, 45665454);
+            Usuario empleado = new Usuario("Lautaro", "Moreira", 20, 45665454 , 2.5F);
 
-            elVicio = new Ciber(clientes , computadoras , telefonos , empleado);
+            elVicio = new Ciber(clientes, computadoras, telefonos, empleado);
+
+            tsInformacion.Text = $"Lautaro Moreira. {DateTime.Now.ToShortDateString()}";
         }
 
         private void btnMostrarComputadoras_Click(object sender, EventArgs e)
@@ -169,8 +182,24 @@ namespace VistaCiber
 
         private void btnHistorial_Click(object sender, EventArgs e)
         {
-            FrmHistorial frmHistorial = new FrmHistorial();
+            FrmHistorial frmHistorial = new FrmHistorial(elVicio);
             frmHistorial.ShowDialog();
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            string message = "Este es el form principal, encontraras tres botones, en el primero podras ir a la parte de maquinas" +
+                " para asignar o finalizar maquinas.\n" +
+                "En el segundo se encuentra el historial del ciber donde consultaras datos importantes.\n" +
+                "Y en el tercero y ultimo se encuentra la parte de usuario, para ver horas trabajadas, salario o informacion del empleado.";
+
+            MessageBox.Show(message, "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+        }
+
+        private void btnCalculadoraDeSalario_Click(object sender, EventArgs e)
+        {
+            FrmCalculadoraSalario frmCalculadora = new FrmCalculadoraSalario(elVicio.Usuario);
+            frmCalculadora.ShowDialog();
         }
     }
 }
